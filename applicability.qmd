@@ -33,9 +33,7 @@ recipe <- model_realtime |> extract_recipe()
 
 ## Load data
 train <- arrow::read_feather("https://figshare.com/ndownloader/files/45407401")
-#train <- arrow::read_feather("../../data/anonymized_bmp_data_training_small.feather")
 validation <- arrow::read_feather("https://figshare.com/ndownloader/files/45407398")
-#validation <- arrow::read_feather("../../data/anonymized_bmp_data_validation_small.feather") 
 
 ## Preprocess Data
 train_preprocessed <- bake(recipe, train)
@@ -122,5 +120,5 @@ While the PCA distance and the Mahalanobis distance are correlated, there are ou
 
 ::: {.callout-tip appearance="simple" icon="false"}
 [***Key Takeaway:***\
-Predictions made on ***out-of-distribution*** inputs should be interpreted with extreme caution. \ ***Applicability assessment*** provides tools for identifying these cases.]{style="font-size:18px;"}
+Predictions made on ***out-of-distribution*** inputs should be interpreted with extreme caution.  ***Applicability assessment*** provides tools for identifying these cases.]{style="font-size:18px;"}
 :::

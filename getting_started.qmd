@@ -2,47 +2,81 @@
 
 As this site aims to serve as a practical guide to the technical details of these machine learning concepts, we have provided example code in each section that will allow you to take the publicly available data and models and reproduce the figures you see as you explore each section. Below, we will outline how to set your environment up so that you can code along with the material.
 
+::: {.callout-note appearance="minimal" icon="false"}
+This code walk-through assumes R is already [installed](https://rstudio-education.github.io/hopr/starting.html), and you have a basic familiarity with running R code.
+:::
+
 ## The GitHub Repository
 
-If you are familiar with git and GitHub, you can clone [the repository](https://github.com/nspies13/practical-machine-learning-in-the-clinical-laboratory) to your local machine.
+::: panel-tabset
+## Manual Download
 
-```bash
+1.  Download the repo:
 
-## Set Up Our Environment
+    <https://github.com/nspies13/practical-machine-learning-in-the-clinical-laboratory/archive/refs/heads/main.zip>
+
+2.  Open the zip file and move the contents to your desired location on your computer.
+
+## Using Git
+
+Clone the repository by running this command from the desired location on your computer as your working directory.
+
+``` bash
+git clone https://github.com/nspies13/practical-machine-learning-in-the-clinical-laboratory.git
+```
+:::
+
+Once downloaded, open the project environment by clicking on the file *"supplementary_website.Rproj"*.
+
+## Setting Up Our Environment
+
+With the .Rproj file opened, our first task will be to install the necessary packages by running the code below.
 
 ```{r}
+#| eval: false
+#| echo: true
+#| code-fold: false
+
+### Install renv if you don't already have it
+if (!requireNamespace("renv", quietly = TRUE)) {
+  install.packages("renv")
+}
+
+### Use renv to install the necessary packages
+renv::restore()
+
+```
+
+Next, we'll load the most relevant libraries and set a random seed for reproducibility.
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-fold: false
+
 ## Load Libraries
 library(tidyverse)
 library(tidymodels)
-library(vetiver)
-library(pins)
-tidymodels_prefer()
 
 ## Configure Environment
 set.seed(12345)
 
 ```
 
-## Load the Example Data
+## Download and Load the Example Data and Models
 
 ```{r}
+#| eval: false
+#| echo: true
+#| code-fold: false
 
 ## Download and Import BMP Data Directly from FigShare 
-#data <- read_csv("https://figshare.com/ndownloader/files/45355549")
-#model_realtime <- read_rds("https://figshare.com/ndownloader/files/45451684") |> pluck("model") |> bundle::unbundle()
-#model_retrospective <- read_rds("https://figshare.com/ndownloader/files/45451717") |> pluck("model") |> bundle::unbundle()
+train <- arrow::read_feather("https://figshare.com/ndownloader/files/45407401")
+validation <- arrow::read_feather("https://figshare.com/ndownloader/files/45407398")
 
-## Download Locally, Then Import. ** Change These Paths To Your Own Local Downloads **
-#data <- arrow::read_feather("../data/anonymized_bmp_data_all.feather")
-
-## Split Data into Training and Validation Sets
-#train <- data |> dplyr::filter(dataset == "WashU Train")
-#validation <- data |> dplyr::filter(dataset == "WashU Validation")
-
-## Load the Relevant Models
-#model_realtime <- read_rds("../data/normal_saline_XGB_BMP_current_with_deltas.rds") |> pluck("model") |> bundle::unbundle()
-#model_retrospective <- read_rds("../data/normal_saline_XGB_BMP_prior_current_and_post.rds") |> pluck("model") |> bundle::unbundle()
-
-
+## Download and Import Models Directly from FigShare
+model_realtime <- read_rds("https://figshare.com/ndownloader/files/45631488") |> pluck("model") |> bundle::unbundle()
+model_retrospective <- read_rds("https://figshare.com/ndownloader/files/45631491") |> pluck("model") |> bundle::unbundle()
 ```
 
+With these commands run, you should be all set to code along with the remainder of the content in this site. 

@@ -14,7 +14,7 @@ Many clinical applications of ML involve the prediction of rare events. In these
 
 ------------------------------------------------------------------------
 
-### *The Experiment*
+### Measuring Performance on Imbalanced Classes
 
 ::: columns
 ::: {.column width="35%"}
@@ -93,12 +93,6 @@ gg_imbalance_densities
 :::
 
 As our positive class -- the event we are trying to predict -- becomes rarer and rarer, we will need to adjust the performance metrics we use to evaluate our machine learning pipeline.
-
-------------------------------------------------------------------------
-
-### ***The Results***
-
-Now, let's take a look at how this increasing class imbalance affects some of the common performance metrics for our hypothetical classifier...
 
 ```{r}
 #| label: fig-class-imbalance-metrics
@@ -211,5 +205,5 @@ Here, we see a stark contrast between metrics that are sensitive to class imbala
 
 ::: {.callout-tip appearance="simple" icon="false"}
 [***Key Takeaway:***\
-When predicting rare events, use ***Precision-Recall Curves***, ***Positive Predictive Value***, and the ***Matthews Correlation Coefficient (MCC)*** to better assess real-world performance.]{style="font-size:18px;"}
+When predicting rare events, use ***Precision-Recall Curves***, ***Positive Predictive Value***, and the ***Matthews Correlation Coefficient (MCC)*** to better assess clinical utility in real-world applications.]{style="font-size:18px;"}
 :::

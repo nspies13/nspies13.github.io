@@ -31,8 +31,7 @@ recipe <- model_realtime |> extract_recipe()
 predictors <- recipe$term_info |> dplyr::filter(role == "predictor") |> pluck("variable")
 
 validation <- arrow::read_feather("https://figshare.com/ndownloader/files/45407398") |> select(any_of(predictors))
-#validation <- arrow::read_feather("../../data/anonymized_bmp_data_validation_small.feather")
-validation_with_predictions <- augment(model_realtime, validation |> drop_na(matches("delta_prior"))) |> slice_head(n = 10000, by = ".pred_class")
+validation_with_predictions <- augment(model_realtime, validation |> drop_na(matches("delta_prior"))) |> slice_head(prop = 0.05, by = ".pred_class")
 validation_preprocessed <- bake(recipe, validation_with_predictions) |> bind_cols(validation_with_predictions |> select(matches("pred")))
 
 library(iml)
@@ -65,7 +64,7 @@ ggpubr::ggarrange(gg_pdp, gg_ale, ncol = 2, nrow = 1)
 
 ```
 
-While As we can see, we obtain slightly different answers from each approach, though largely they agree. Higher chloride concentrations lead to high predicted probabilities for contamination by normal saline. Some of the idiocyncracies of each approach are summarized below.
+While As we can see, we obtain slightly different answers from each approach, though largely they agree. Higher chloride concentrations lead to high predicted probabilities for contamination by normal saline. Some of the idiosyncrasies of each approach are summarized below.
 
 +---------------------------------+-------------------------------------+----------------------------------------------------+
 |                                 | Advantages                          | Disadvantages                                      |
@@ -129,7 +128,7 @@ The local SHAP values for this example show that the high probability prediction
 We can also aggregate local SHAP values to understand the global importance of each feature in the model's predictions in the form of a "beeswarm" plot.
 
 ```{r}
-#| fig-width: 12
+#| fig-width: 13
 #| fig-height: 6
 #| 
 
@@ -138,7 +137,7 @@ shap <- shapviz(extract_fit_engine(model_realtime), X_pred = as.matrix(validatio
 shap$S <- as.matrix(shap$S * -1)
 
 # Plot SHAP Values as Beeswarm Plot
-gg_bee <- sv_importance(shap, kind = "beeswarm", max_display = 5, alpha = 0.5) + scico::scale_color_scico(palette = "vik", breaks = c(0, 1), labels = c("Low", "High"), name = "Feature Value") + xlab("Impact on Prediction") + theme(legend.position = c(0.15, 0.15), legend.direction = "horizontal", legend.title.position = "top", axis.text.x.bottom = element_blank())
+gg_bee <- sv_importance(shap, kind = "beeswarm", max_display = 5, alpha = 0.75) + scico::scale_color_scico(palette = "vik", breaks = c(0, 1), labels = c("Low", "High"), name = "Feature Value") + xlab("Impact on Prediction") + theme(legend.position = c(0.85, 0.20), legend.direction = "horizontal", legend.title.position = "top", axis.text.x.bottom = element_blank())
 gg_bee
 
 ```

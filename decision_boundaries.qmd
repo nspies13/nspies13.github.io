@@ -83,6 +83,7 @@ gg_dist +
 
 ::: {.column width="25%"}
 ### Performance Metrics
+
 ***Sens:*** `r sens |> pluck(".estimate") |> round(3)`
 
 ***Spec:*** `r spec |> pluck(".estimate") |> round(3)`
@@ -100,7 +101,7 @@ gg_dist +
 The Receiver Operating Characteristic (ROC) curve has long been a staple in the evaluation of binary classifiers, and is another useful tool for setting a decision boundary. When using an ROC curve to establish a decision boundary, it is common to calculate the point at which the sum of sensitivity and specificity are maximized. This can be achieved by calculating Youden's J index across multiple thresholds.
 
 ::: columns
-::: {.column width=700}
+::: {.column width="700"}
 ```{r}
 #| fig-width: 7
 #| fig-height: 5
@@ -126,12 +127,19 @@ ggplot(roc, aes(x = 1 - specificity, y = sensitivity)) +
 ```
 :::
 
-::: {.column width="40%" vertical-align="bottom"}
+::: {.column width="40%"}
+\
+\
+\
+\
+
 ### Youden's J Index
+
 ::: {.callout-note appearance="minimal" icon="false"}
 ***Definition:***\
 J = Sensitivity + Specificity - 1
 :::
+
 ::: {.callout-note appearance="minimal" icon="false"}
 ***Key Consideration:***\
 Maximizing Youden's J will provide the optimal threshold *iff* **sensitivity** and **specificity** are **equally important**.
@@ -141,11 +149,11 @@ Maximizing Youden's J will provide the optimal threshold *iff* **sensitivity** a
 
 ## Decision Boundaries Using Imbalance-Sensitive Metrics
 
-Maximizing Youden's J index works well if we care equally about sensitivity and specificity, but real-life clinical scenarios in which a false positive and a false negative are equally disruptive are rare. Additionally, @sec-performance-metrics highlighted that metrics like sensitivity and specificity can be misleading in the setting of a class imbalance. Let's explore how we might use metrics like the NPV, PPV, and MCC to set a decision boundary. For this, we'll use the *{probably} @kuhn2024* package.
+Maximizing Youden's J index works well if we care equally about sensitivity and specificity, but real-life clinical scenarios in which a false positive and a false negative are equally disruptive are rare. Additionally, the section on [Measuring Performance](https://nspies.quarto.pub/practical-machine-learning-in-the-clinical-laboratory/metric_selection.html) highlighted that metrics like sensitivity and specificity can be misleading in the setting of a class imbalance. Let's explore how we might use metrics like the NPV, PPV, and MCC to set a decision boundary. For this, we'll use the *{probably} @kuhn2024* package.
 
 ```{r}
-#| fig-width: 10
-#| fig-height: 6
+#| fig-width: 13
+#| fig-height: 4
   
 library(probably)
 
@@ -167,12 +175,12 @@ max_J <- decision_curves |> dplyr::filter(.metric == "j_index") |> arrange(desc(
 
 # Plot Results
 ggplot(decision_curves, aes(x = .threshold, y = .estimate, color = .metric)) + 
-  geomtextpath::geom_textline(aes(label = str_to_upper(.metric)), linewidth = 1.5, fontface = "bold", size = 8) + 
+  geomtextpath::geom_textline(aes(label = str_to_upper(.metric)), linewidth = 1.5, fontface = "bold", size = 8, hjust = 0.25) + 
   geom_vline(xintercept = max_mcc[[".threshold"]], linetype = "dashed") +
-  geom_text(data = max_mcc, x = max_mcc[[".threshold"]] - 0.02, y = 0.05, hjust = 1, label = glue::glue("Max MCC at a cut-off of ", max_mcc[[".threshold"]])) + 
+  geom_text(data = max_mcc, x = max_mcc[[".threshold"]] - 0.02, y = 0.1, hjust = 1, fontface = "bold", label = glue::glue("Max MCC at a cut-off of ", max_mcc[[".threshold"]])) + 
   geom_point(data = max_mcc, size = 6, aes(color = "mcc")) + 
   geom_vline(xintercept = max_J[[".threshold"]], linetype = "dashed") +
-  geom_text(data = max_J, x = max_J[[".threshold"]] + 0.02, y = 0.05, hjust = 0, label = glue::glue("Max Youden's J at a cut-off of ", max_J[[".threshold"]])) + 
+  geom_text(data = max_J, x = max_J[[".threshold"]] + 0.02, y = 0.1, hjust = 0, fontface = "bold", label = glue::glue("Max Youden's J at a cut-off of ", max_J[[".threshold"]])) + 
   geom_point(data = max_J, size = 6, aes(color = "j_index")) + 
   scico::scale_color_scico_d(palette = "lipari", begin = 0.1, end = 0.9) +
   scale_x_continuous(name = "Prediction Threshold", breaks = c(0, 0.5, 1)) + 
@@ -188,18 +196,18 @@ Using the more imbalance-sensitive metrics, we can see that the threshold that m
 In some clinical scenarios, where the cost of a false positive and/or a false negative prediction is high, it may be beneficial to define an "equivocal zone" where the model's continuous output is not converted into a class prediction. This is particularly helpful when planning for fully automated implementations, where extreme confidence is needed before deciding to forgo a human review step.
 
 ```{r}
-#| fig-width: 9
+#| fig-width: 13
 #| fig-height: 4
 #| fig-align: center
 
 gg_dist_with_equiv <-
   gg_dist + 
-    geom_vline(xintercept = c(0.14, 0.66), linetype = "dashed") + 
-    annotate("rect", xmin = 0.14, xmax = 0.66, ymin = 0, ymax = 5, fill = "gray70", alpha = 0.5) + 
-    annotate("text", x = 0.4, y = 2.5, label = "Equivocal", hjust = 0.5, size = 6, fontface = "bold") + 
+    geom_vline(xintercept = c(0.25, 0.75), linetype = "dashed") + 
+    annotate("rect", xmin = 0.25, xmax = 0.75, ymin = 0, ymax = 5, fill = "gray70", alpha = 0.5) + 
+    annotate("text", x = 0.5, y = 2.5, label = "Equivocal", hjust = 0.5, size = 6, fontface = "bold") + 
     ## Add a segment with an arrow on either side
-    annotate("segment", x = 0.5, xend = 0.65, y = 2.5, yend = 2.5, arrow = arrow(type = "closed", length = unit(0.1, "inches"))) +
-    annotate("segment", x = 0.3, xend = 0.15, y = 2.5, yend = 2.5, arrow = arrow(type = "closed", length = unit(0.1, "inches"))) + 
+    annotate("segment", x = 0.6, xend = 0.73, y = 2.5, yend = 2.5, arrow = arrow(type = "closed", length = unit(0.1, "inches"))) +
+    annotate("segment", x = 0.4, xend = 0.27, y = 2.5, yend = 2.5, arrow = arrow(type = "closed", length = unit(0.1, "inches"))) + 
     ggtitle("Decision Boundaries with an Equivocal Zone")
 gg_dist_with_equiv
   

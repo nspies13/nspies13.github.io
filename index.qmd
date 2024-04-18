@@ -4,7 +4,6 @@ format:
   html:
     grid:
       margin-width: 200px
-
 ---
 
 Welcome to *Practical Machine Learning in the Clinical Laboratory*. This site aims to serve as a supplement to the content outlined in the article, *"Validating, Implementing, and Monitoring Machine Learning Solutions in the Clinical Laboratory Safely and Effectively"*. We hope to provide a more detailed, technical corollary to the concepts and principles discussed in the main article.
@@ -13,7 +12,7 @@ The site will guide us through some of the practical components of applying mach
 
 ## The Motivating Example
 
-Erroneous laboratory results contribute to a cascade of downstream consequences that negatively impact patient care [@mold1986], including delays in diagnosis, incorrect treatments, and increased healthcare costs [@plebani2014; @committeeondiagnosticerrorinhealthcare2015; @graber2006]. The majority of these errors stem from issues of improper collection or transport, and occur prior to a specimen reaching the laboratory[@carraro2007; @sciacovelli2017]. While substantial progress has been made in reducing the burden of mislabeled specimens, improperly ordered tests, and other preanalytical errors[@ho2021; @wachter2014; @mays2018; @farrell2023; @lippi2019], contamination by IV fluids remains an unsolved problem[@choucair2023; @spies2024]. Recognizing this unmet need, the IFCC Working Group on Laboratory Error and Patient Safety added "contamination by a non-microbiological source (Pre-Cont)" to its preanalytical quality indicators in its 2019 report[@sciacovelli2019].
+Erroneous laboratory results contribute to a cascade of downstream consequences that negatively impact patient care [@mold1986], including delays in diagnosis, incorrect treatments, and increased healthcare costs [@plebani2014; @committeeondiagnosticerrorinhealthcare2015; @graber2006]. The majority of these errors stem from issues of improper collection or transport, and occur prior to a specimen reaching the laboratory[@carraro2007; @sciacovelli2017]. While substantial progress has been made in reducing the burden of mislabeled specimens, improperly ordered tests, and other preanalytical errors[@ho2021; @wachter2014; @mays2018; @farrell2023; @lippi2019], contamination by IV fluids remains an unsolved problem[@choucair2023; @spies2024]. Recognizing this unmet need, the *IFCC Working Group on Laboratory Error and Patient Safety* added a new quality indicator -- *"Contamination by a non-microbiological source (Pre-Cont)"* to its 2019 report[@sciacovelli2019].
 
 ![**Figure 1**: *Preanalytical errors are common, and occur prior to specimens reaching the laboratory.*](images/preanalytical_error_types_schematic-04.png){width="898"}
 
@@ -25,6 +24,14 @@ IV fluid contamination occurs when a sample is collected from a catheter through
 
 ## The Machine Learning Solution
 
-\~2,500,000 BMP results collected from inpatients at a single institution were extracted from the laboratory information system. Contamination by 0.9% normal saline was simulated[@spies2023] at varying mixture ratios in a randomly selected subset of results (**Figure 3**). An XGBoost[@chen2016] model was tuned using cross-validation, then trained to predict the label of simulated contamination using patients' current and most recent prior results (drawn within 24 hours) for each analyte in the BMP.
+\~2,500,000 BMP results collected from inpatients at a single institution were extracted from the laboratory information system. Contamination by 0.9% normal saline was simulated[@spies2023] at varying mixture ratios in a randomly selected subset of results (**Figure 3**). An XGBoost[@chen2016] model was tuned using cross-validation, then trained to predict the binary class label of simulated contamination vs. physiologic result.
+
+Two models will be described in this example:
+
+-   A ***real-time*** model that uses the patients' *current* and most recent *prior* results to predicts contamination at the time the specimen is drawn.
+
+-    A ***retrospective*** model which also incorporates patients' *subsequent* results to assess for the anomaly-with-resolution pattern.
+
+The real-time model would be intended for live clinical use, while the retrospective model would be intended as a quality assurance tool and mechanism by which ground truth labels could be applied in an automated, scalable fashion.
 
 ![**Figure 3:** *Simulating normal saline contamination to generate labels for training the XGBoost model.*](images/contamination_simulation_procedure_schematic_ns-01.svg){width="1021"}

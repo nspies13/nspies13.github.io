@@ -24,7 +24,7 @@ Assessing the performance of a machine learning pipeline in the clinical laborat
 
 ::: {.column width="49%"}
 | Ground Truth     | Example                                                         |
-|------------------|-----------------------------------------------------------------|
+|------------------|------------------------------------------------------|
 | Current State    | Technologist-applied interpretive comments                      |
 | Real-Time Deltas | Multivariate delta checks from mixing experiments @choucair2023 |
 | Pre-Post Deltas  | Data-derived thresholds for anomaly-resolution @patel2015       |
@@ -36,7 +36,7 @@ Assessing the performance of a machine learning pipeline in the clinical laborat
 The code chunk below demonstrates how we can define each of these options for ground truth labeling of our validation set in R, so that we can assess their similarities and differences. Comparing each option can be achieved on the aggregate using a Venn diagram, but for a more granular exploration of the data, we can use a tile plot instead, shown below.
 
 ```{r}
-#| fig-width: 11
+#| fig-width: 13
 #| fig-height: 3
 #| warning: false
 #| message: false
