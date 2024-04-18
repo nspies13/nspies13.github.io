@@ -1,0 +1,50 @@
+project:
+  type: website
+
+website:
+  title: "Practical Machine Learning in the Clinical Laboratory"
+  sidebar:
+    style: "docked"
+    search: true
+    contents: 
+      - text: "Home"
+        file: index.qmd
+      - text: "Getting Started"
+        file: getting_started.qmd
+      - text: "Define Ground Truth"
+        file: ground_truth.qmd
+      - text: "Measure Performance"
+        file: metric_selection.qmd
+      - text: "Optimize Decision Boundaries"
+        file: decision_boundaries.qmd
+      - text: "Explain Models & Predictions"
+        file: explainability.qmd
+      - text: "Algorithmic Fairness"
+        file: algorithmic_fairness.qmd
+      - text: "Assess Applicability"
+        file: applicability.qmd
+      - text: "Glossary"
+        file: glossary.qmd
+
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    warning: false
+    code-fold: true
+    code-summary: "Show the Code"
+    embed-resources: true
+    grid:
+      sidebar-width: 300px
+      body-width: 1300px
+      margin-width: 0px
+      gutter-width: 1.5rem
+    css: styles.css
+    
+execute:
+  cache: true
+
+bibliography: references.bib
+csl: nejm.csl
+
+editor: visual

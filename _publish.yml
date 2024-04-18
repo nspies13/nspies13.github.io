@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: 295034eb-06c2-479a-819a-4600c90bf1e1
+      url: 'https://nspies.quarto.pub/practical-machine-learning-in-the-clinical-laboratory'

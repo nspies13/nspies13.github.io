@@ -1,0 +1,30 @@
+---
+title: "Practical Machine Learning in the Clinical Laboratory"
+format: 
+  html:
+    grid:
+      margin-width: 200px
+
+---
+
+Welcome to *Practical Machine Learning in the Clinical Laboratory*. This site aims to serve as a supplement to the content outlined in the article, *"Validating, Implementing, and Monitoring Machine Learning Solutions in the Clinical Laboratory Safely and Effectively"*. We hope to provide a more detailed, technical corollary to the concepts and principles discussed in the main article.
+
+The site will guide us through some of the practical components of applying machine learning to clinical laboratory tasks using a real-world example, the detection of basic metabolic panel (BMP) results that have been contaminated by 0.9% normal saline (NS). The data and models used in this example are publicly available on FigShare (see *Getting Started*), and the code will be written in *R*.
+
+## The Motivating Example
+
+Erroneous laboratory results contribute to a cascade of downstream consequences that negatively impact patient care [@mold1986], including delays in diagnosis, incorrect treatments, and increased healthcare costs [@plebani2014; @committeeondiagnosticerrorinhealthcare2015; @graber2006]. The majority of these errors stem from issues of improper collection or transport, and occur prior to a specimen reaching the laboratory[@carraro2007; @sciacovelli2017]. While substantial progress has been made in reducing the burden of mislabeled specimens, improperly ordered tests, and other preanalytical errors[@ho2021; @wachter2014; @mays2018; @farrell2023; @lippi2019], contamination by IV fluids remains an unsolved problem[@choucair2023; @spies2024]. Recognizing this unmet need, the IFCC Working Group on Laboratory Error and Patient Safety added "contamination by a non-microbiological source (Pre-Cont)" to its preanalytical quality indicators in its 2019 report[@sciacovelli2019].
+
+![**Figure 1**: *Preanalytical errors are common, and occur prior to specimens reaching the laboratory.*](images/preanalytical_error_types_schematic-04.png){width="898"}
+
+## IV Fluid Contamination
+
+IV fluid contamination occurs when a sample is collected from a catheter through which a solution is being infused or drawn proximally to the catheter’s insertion site. This leads to divergence in the measured concentrations for all analytes being tested, the nature of which depend on the composition of the contaminating fluid (**Figure 2**). Current protocols for detecting contaminated specimens vary across institutions, and may rely on delta checks, feasibility flags, or manual technologist review. These methods are often time-consuming and may prone to error[@strathmann2011]. The multivariate nature of this problem lends itself well to a machine learning solution.
+
+![**Figure 2**: *Preanalytical errors, such as IV fluid contamination, often display an "anomaly-with-resolution" pattern across multiple analytes if recollected with proper technique.*](images/anomaly_with_resolution.svg){width="1342"}
+
+## The Machine Learning Solution
+
+\~2,500,000 BMP results collected from inpatients at a single institution were extracted from the laboratory information system. Contamination by 0.9% normal saline was simulated[@spies2023] at varying mixture ratios in a randomly selected subset of results (**Figure 3**). An XGBoost[@chen2016] model was tuned using cross-validation, then trained to predict the label of simulated contamination using patients' current and most recent prior results (drawn within 24 hours) for each analyte in the BMP.
+
+![**Figure 3:** *Simulating normal saline contamination to generate labels for training the XGBoost model.*](images/contamination_simulation_procedure_schematic_ns-01.svg){width="1021"}

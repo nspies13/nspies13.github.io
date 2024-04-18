@@ -1,0 +1,116 @@
+---
+bibliography: references.bib
+---
+
+# Establishing Ground Truth Labels {#sec-ground-truth .unnumbered}
+
+------------------------------------------------------------------------
+
+```{r}
+#| echo: false
+
+#source("helpers/_package_loader.R")
+```
+
+Assessing the performance of a machine learning pipeline in the clinical laboratory requires that we compare its predictions to some form of *ground truth* label. Given its importance, it is crucial that we perform a comprehensive evaluation of the options for defining ground truth. In clinical applications, predictions often must be made at time points with incomplete information. However, our ground truth label can often benefit from its retrospective or asynchronous nature by incorporating valuable information that is not available to models in real-time. Below, we explore the differences between various options for ground truth labels in our IV fluid contamination example.
+
+::: columns
+::: {.column width="49%"}
+![](../images/ns_contamination_line_draw_schematic-03.png)
+:::
+
+::: {.column width="2%"}
+:::
+
+::: {.column width="49%"}
+| Ground Truth     | Example                                                         |
+|------------------|-----------------------------------------------------------------|
+| Current State    | Technologist-applied interpretive comments                      |
+| Real-Time Deltas | Multivariate delta checks from mixing experiments @choucair2023 |
+| Pre-Post Deltas  | Data-derived thresholds for anomaly-resolution @patel2015       |
+| Retrospective ML | ML models that use the subsequent draw as features              |
+| Expert Review    | Subject matter experts adjudicate each result                   |
+:::
+:::
+
+The code chunk below demonstrates how we can define each of these options for ground truth labeling of our validation set in R, so that we can assess their similarities and differences. Comparing each option can be achieved on the aggregate using a Venn diagram, but for a more granular exploration of the data, we can use a tile plot instead, shown below.
+
+```{r}
+#| fig-width: 11
+#| fig-height: 3
+#| warning: false
+#| message: false
+
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(tidymodels))
+
+## Load models
+#model_realtime <- read_rds("https://figshare.com/ndownloader/files/45631488") |> pluck("model") |> bundle::unbundle()
+model_retrospective <- read_rds("https://figshare.com/ndownloader/files/45631491") |> pluck("model") |> bundle::unbundle()
+predictors <- model_retrospective |> extract_recipe() |> pluck("term_info") |> dplyr::filter(role == "predictor") |> pluck("variable")
+
+## Load validation data
+validation <- arrow::read_feather("https://figshare.com/ndownloader/files/45407398") |> select(any_of(predictors), contam_comment, expert_review_prediction)
+
+## Add ground truth labels
+validation_with_ground_truth_labels <- 
+  validation %>% 
+    transmute(
+      ## Current State Labels: Technologist- and Delta Check-Driven Interpretive Comments
+      current_state = contam_comment,
+      
+      ## Literature-based Multivariate Delta Checks from Choucair et al. 2022
+      realtime_deltas = chloride_delta_prior > 7.7 & potassium_plas_delta_prior < -0.7 & calcium_delta_prior < -1.7,
+      
+      ## Retrospective Rules: Data-derived thresholds for resolution back to baseline from Patel et al. 2015
+      retrospective_deltas = 
+        chloride_delta_prior > quantile(chloride_delta_prior, probs = 0.95, na.rm = T)[[1]] & 
+        chloride_delta_post < quantile(chloride_delta_post, probs = 0.05, na.rm = T)[[1]] &
+        calcium_delta_prior < quantile(calcium_delta_prior, probs = 0.05, na.rm = T)[[1]] &
+        calcium_delta_post > quantile(calcium_delta_post, probs = 0.95, na.rm = T)[[1]],
+      
+      ## Retrospective ML: ML models that use the subsequent draw as features
+      retrospective_ml = (predict(model_retrospective, new_data = .) |> pluck(".pred_class") == 1),
+      
+      ## Expert Review: Subject matter experts adjudicate each result
+      expert_review = expert_review_prediction == 1 & glucose_delta_prior < 100 & calcium_delta_prior < 0
+    )
+
+## Convert to Long Format for Visualization with ggplot2
+ground_truth_tile_plot_input <- 
+  validation_with_ground_truth_labels |>
+    slice_sample(n = 100, by = expert_review) |> ## Select 1000 Random Negatives and Positives from ML
+    mutate(id = row_number()) |> ## Add an index column for plotting
+    pivot_longer(-id, names_to = "Type", values_to = "Value") |>
+    mutate(Value = factor(Value, labels = c("Negative", "Positive")), 
+           Type = factor(Type, 
+                         levels = c("current_state", "realtime_deltas", "retrospective_deltas", "retrospective_ml", "expert_review"),
+                         labels = c("Current State", "Real-Time Deltas", "Retrospective Deltas", "Retrospective ML", "Expert Review")))
+
+## Plot the Tile Plot
+gg_tile <- 
+  ggplot(ground_truth_tile_plot_input, aes(x = id, y = fct_rev(Type), fill = Value)) +
+    geom_tile(alpha = 0.75) +
+    geom_vline(xintercept = c(100.5, 200.5), linetype = "dashed") +  
+    geom_text(data = tibble(id = c(50, 150, 250), Type = c("Expert Review", "Expert Review", "Expert Review"), Value = c(NA, "Negative", "Positive"), Label = c("Not Available", "Negative", "Positive")), aes(label = Label, color = Value), fontface = "bold.italic", size = 8) +
+    scale_x_continuous(name = "Specimen ID", expand = c(0,0)) + 
+    scale_y_discrete(name = "Ground Truth Type", expand = c(0,0)) +
+    scale_fill_manual(values = c(scico::scico(2, palette = "lipari", begin = 0.6333, end = 0.3666)), na.value = scico::scico(1, palette = "lipari", begin = 0.9, end = 0.9)) +
+    scale_color_manual(values = c(scico::scico(2, palette = "lipari", begin = 0.6, end = 0.35)), na.value = scico::scico(1, palette = "lipari", begin = 0.85, end = 0.85)) +
+    guides(alpha = "none") +
+    ggtitle("Ground Truth Label Comparison", subtitle = "100 Randomly-Selected Specimens From Each Expert Review Label") +
+    theme(legend.position = "none", legend.title = element_blank(), legend.direction = "horizontal", axis.text.x.bottom = element_blank(), axis.title.y.left = element_blank())
+
+gg_tile
+```
+
+Here, we can see remarkable variation across 5 different options for assigning our ground truth for cases that are not labeled as negative by the expert reviewers. Our current state labels seem to be quite insensitive as compared to the other options, but it does benefit from being available in all cases. Meanwhile, both multivariate delta check methods will catch more cases than our current state. The most similar, however, is the retrospective ML labels, likely due to an ML-based approach's potential for capturing complex, non-linear relationships between each feature.
+
+While having a subject matter expert review all predictions retrospectively may be an ideal solution, it often requires an unfeasible amount of investment. Additionally, it should not be taken as an immutable truth that the human-defined expert labels are in fact better than what an ML model can do, as many problems are extraordinarily complex, and require balancing many dimensions simultaneously – a task for which humans are ill-suited.
+
+The high negative and positive percent agreements, combined with operational advantages of an automatable approach, make the retrospective ML-based gold-standard definition a particularly attractive one for the problem of IV fluid contamination detection, and we will proceed with those labels as our ground truth for the rest of this exercise.
+
+::: {.callout-tip appearance="simple" icon="false"}
+[***Key Takeaway:***\
+The choice of ground truth label should strive to achieve an optimal balance of ***performance*** and ***feasibility***.]{style="font-size:18px;"}
+:::

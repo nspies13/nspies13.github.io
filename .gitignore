@@ -1,0 +1,4 @@
+*.DS*
+*Rproj.user
+*_cache*
+/.quarto/

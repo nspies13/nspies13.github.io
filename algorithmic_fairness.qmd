@@ -1,0 +1,164 @@
+# Algorithmic Fairness {#sec-algorithmic-fairness .unnumbered}
+
+------------------------------------------------------------------------
+
+```{r}
+#| echo: false
+
+#source("helpers/_package_loader.R")
+```
+
+A crucial aspect of deploying machine learning (ML) models in clinical laboratories is ensuring that they achieve their desired goals without introducing or exacerbating inequity in healthcare delivery. We will examine these vulnerabilities through the lens of fairness concepts and their metrics during the model validation process. Azimi and Zaydman @azimi2023 have provided a more comprehensive overview of the key considerations for laboratory medicine.
+
+## Fairness Concepts
+
+::: columns
+::: {.column width="50%"}
+![](images/algorithmic_fairness_concepts_schematic_full.png)
+:::
+
+::: {.column width="2%"}
+:::
+
+::: {.column width="28%" vertical-align="middle"}
+Predictive performance can be contextualized within three concepts of group fairness;
+
+-   ***Demographic parity***, where model flag rates are identical across subgroups,
+
+-   ***Equalized odds***, where sensitivity and specificity are identical across subgroups,
+
+-   ***Predictive parity***, where PPV and NPV are identical across subgroups.
+:::
+:::
+
+## Assessing Fairness in Contamination Predictions
+
+```{r}
+
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(tidymodels))
+
+## Load models
+model_realtime <- read_rds("https://figshare.com/ndownloader/files/45631488") |> pluck("model") |> bundle::unbundle()
+model_retrospective <- read_rds("https://figshare.com/ndownloader/files/45631491") |> pluck("model") |> bundle::unbundle()
+predictors <- model_retrospective |> extract_recipe() |> pluck("term_info") |> dplyr::filter(role == "predictor") |> pluck("variable")
+
+## Load validation data
+validation <- arrow::read_feather("https://figshare.com/ndownloader/files/45407398") |> select(any_of(predictors))
+
+## Add ground-truth labels via retrospective model
+validation_with_ground_truth <- augment(model_retrospective, validation |> drop_na(any_of(predictors))) |> mutate(truth = factor(.pred_class, labels = c("Negative", "Positive"))) |> select(-matches("pred"))
+
+## Randomly assign two-thirds of the positive classes to females
+validation_with_sex_labels <- 
+  validation_with_ground_truth |> 
+    mutate(sex = ifelse(truth == "Positive", sample(c("Male", "Female"), size = n(), replace = TRUE, prob = c(1, 2)), NA_character_))
+
+## Assign equal proportions of the negative classes to each sex
+validation_with_sex_labels <- 
+  validation_with_sex_labels |> 
+    mutate(sex = ifelse(truth == "Negative", sample(c("Male", "Female"), size = n(), replace = TRUE), sex))
+
+
+```
+
+::: columns
+::: {.column width="55%" vertical-align="bottom"}
+Let's explore how we will calculate these metrics using our normal saline predictor in *R*.
+
+First, we'll add a set of simulated labels to our validation set.
+
+We'll make contamination twice as common in females as in males.
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="20%"}
+```{r}
+#| echo: false
+#| 
+## Print out the contingency table
+table(validation_with_sex_labels$truth, validation_with_sex_labels$sex) |> knitr::kable(digits = 3, caption = "Contaminated Results by Sex")
+
+```
+:::
+:::
+
+### Calculating Group-Wise Performance Metrics
+
+Next, we'll calculate a set of performance metrics, including sensitivity, specificity, positive predictive value (PPV), negative predictive value (NPV), and flag rate, for each sex (*left*).
+
+Then, we'll compare these metrics across the demographic groups using the fairness concepts described above (*right*).
+
+```{r}
+
+## Apply real-time predictions 
+validation_realtime_preds <- augment(model_realtime, validation_with_sex_labels) |> mutate(pred = factor(.pred_class, labels = c("Negative", "Positive")))
+
+## Calculate group-wise performance metrics
+metrics_to_calculate <- metric_set(sens, spec, ppv, npv, detection_prevalence)
+groupwise_metrics <- 
+  validation_realtime_preds |> 
+    group_by(sex) |> 
+    metrics_to_calculate(truth = truth, estimate = pred, event_level = "second") |> 
+    transmute(Metric = str_to_upper(.metric), Value = .estimate, Sex = sex) |> 
+    mutate(Metric = ifelse(Metric == "DETECTION_PREVALENCE", "FLAG RATE", Metric))
+
+## Output metrics comparison
+metric_table <- groupwise_metrics |> pivot_wider(id_cols = Sex, names_from = Metric, values_from = Value) |> knitr::kable(digits = 3)
+
+## Add predictive parity to yardstick's prebuilt functions
+diff_range <- function(x) {diff(range(x$.estimate))}
+predictive_parity <- new_groupwise_metric(ppv, name = "predictive_parity", aggregate = diff_range)
+
+## Define fairness metrics to calculate
+fairness_metrics <- metric_set(demographic_parity(by = sex), equalized_odds(by = sex), predictive_parity(by = sex))
+
+## Calculate fairness metrics 
+validation_fairness <- 
+  validation_realtime_preds |> 
+    fairness_metrics(truth = truth, estimate = pred, event_level = "second") |> 
+    transmute(Metric = str_to_upper(.metric), `Metric Difference` = .estimate) 
+
+## Make fairness table
+fairness_table <- validation_fairness |> knitr::kable(digits = 3)
+```
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+metric_table
+```
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="25%"}
+```{r}
+#| echo: false
+fairness_table
+```
+:::
+:::
+
+### Conclusions
+
+Differences in incidence of contamination across the demographic groups leads to:
+
+-   *Discrepant positive predictive values and poor predictive parity.*
+
+Class imbalance, with positive cases being quite rare, leads to:
+
+-   *Large relative, but small absolute, differences in flag rate.*
+
+Given the random nature of the assigned labels:
+
+-   *Sensitivity and specificity are nearly identical across groups.*
+
+::: {.callout-tip appearance="simple" icon="false"}
+[***Key Takeaway:***\
+Performance assessment should incorporate concepts of algorithmic fairness to protect against the introduction or exacerbation of inequity.]{style="font-size:18px;"}
+:::

@@ -1,0 +1,8 @@
+.large-font-callout {
+    font-size: 24px; 
+}
+
+.callout-note {
+  border: 2px solid #3B5378;
+  border-left: 5px solid #3B5378;
+}
