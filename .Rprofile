@@ -3,8 +3,6 @@ source("renv/activate.R")
 ## Load Libraries
 library(tidyverse)
 library(tidymodels)
-library(vetiver)
-library(pins)
 
 ## Configure Environment
 set.seed(12345)
