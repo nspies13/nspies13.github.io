@@ -24,7 +24,7 @@ Assessing the performance of a machine learning pipeline in the clinical laborat
 
 ::: {.column width="49%"}
 | Ground Truth     | Example                                                         |
-|------------------|------------------------------------------------------|
+|------------------|-----------------------------------------------------------------|
 | Current State    | Technologist-applied interpretive comments                      |
 | Real-Time Deltas | Multivariate delta checks from mixing experiments @choucair2023 |
 | Pre-Post Deltas  | Data-derived thresholds for anomaly-resolution @patel2015       |

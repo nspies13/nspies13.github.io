@@ -14,7 +14,7 @@ A crucial aspect of deploying machine learning (ML) models in clinical laborator
 
 ::: columns
 ::: {.column width="50%"}
-![](images/algorithmic_fairness_concepts_schematic_full.png)
+![Concepts of algorithmic fairness, adapted from [Azimi and Zaydman](https://pubmed.ncbi.nlm.nih.gov/36610413/).](images/algorithmic_fairness_concepts_schematic_full.png)
 :::
 
 ::: {.column width="2%"}

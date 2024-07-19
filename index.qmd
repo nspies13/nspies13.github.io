@@ -30,7 +30,7 @@ Two models will be described in this example:
 
 -   A ***real-time*** model that uses the patients' *current* and most recent *prior* results to predicts contamination at the time the specimen is drawn.
 
--    A ***retrospective*** model which also incorporates patients' *subsequent* results to assess for the anomaly-with-resolution pattern.
+-   A ***retrospective*** model which also incorporates patients' *subsequent* results to assess for the anomaly-with-resolution pattern.
 
 The real-time model would be intended for live clinical use, while the retrospective model would be intended as a quality assurance tool and mechanism by which ground truth labels could be applied in an automated, scalable fashion.
 
