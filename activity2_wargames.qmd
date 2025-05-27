@@ -1,0 +1,101 @@
+---
+bibliography: references.bib
+---
+
+# Activity 2: Institutional Complexities in AI Deployment
+
+------------------------------------------------------------------------
+
+# Introduction
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse volutpat ex sed erat pellentesque, bibendum ullamcorper velit tincidunt. Sed at nisl in nisi auctor ullamcorper vel a urna. Cras eget enim a est dignissim tempus eu non lacus. Donec dignissim purus lacus, id euismod ligula placerat sed. Duis placerat risus risus. Pellentesque aliquet, enim feugiat facilisis congue, elit nisi scelerisque ligula, eu elementum ligula ipsum sed odio. Sed ornare convallis nisi nec lobortis. Sed molestie tincidunt nunc eget elementum. Vivamus posuere dolor id elit molestie, quis convallis nisi aliquet. Vestibulum nunc tellus, ullamcorper et accumsan vitae, placerat quis libero. Morbi pulvinar, tortor et finibus pretium, erat elit rutrum nisi, eget iaculis ligula massa nec lorem.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consectetur odio eu arcu dictum iaculis. Aliquam faucibus scelerisque magna, a tincidunt ex tincidunt quis. Vivamus porta id nisl ac hendrerit. Curabitur at urna pharetra augue feugiat pulvinar nec non turpis. Maecenas elementum erat leo, sed dignissim risus efficitur eget. Praesent elementum enim et risus molestie pharetra. Mauris urna massa, imperdiet vel placerat quis, finibus in leo. Vivamus id quam egestas, imperdiet elit ut, congue sem. Aliquam non tristique felis. Fusce arcu risus, bibendum eget nisi eget, tempor convallis mauris. Aliquam tincidunt eros sem, id imperdiet sapien sodales vel.
+
+:::::: panel-tabset
+## IT/Engineering
+
+::: {.callout-important title="Primary Responsibility"}
+Ensure secure, reliable, and scalable deployment, integration, and ongoing maintenance of AI systems within the existing institutional IT infrastructure.
+:::
+
+::: {.callout-important title="Secondary Responsibilities" icon="false" appearance="minimal"}
+-   Maintain cybersecurity and data privacy.
+-   Provide technical support and incident response.
+-   Oversee interoperability with laboratory and hospital information systems.
+:::
+
+::: {.callout-important title="Deal Breakers" icon="false" appearance="minimal"}
+-   Security vulnerabilities or non-compliance with institutional IT policies.
+-   Lack of interoperability or inability to integrate with existing systems.
+-   Excessive resource requirements or unsustainable maintenance burden.
+:::
+
+## Lab (Medical Directorship)
+
+::: {.callout-important title="Primary Responsibility"}
+Ensure that AI applications improve laboratory quality, efficiency, and patient outcomes without compromising clinical standards.
+:::
+
+::: {.callout-important title="Secondary Responsibilities" icon="false" appearance="minimal"}
+-   Serve as liaison between laboratory staff, clinicians, and technical teams.
+-   Provide clinical input on algorithm development and use case prioritization.
+:::
+
+::: {.callout-important title="Deal Breakers" icon="false" appearance="minimal"}
+-   Insufficient validation or failure to meet clinical performance benchmarks.
+-   Disruption to laboratory operations or patient care.
+-   Lack of clinician trust or engagement.
+:::
+
+## Compliance/Regulatory
+
+::: {.callout-important title="Primary Responsibility"}
+Ensure full compliance with all applicable regulatory, legal, and accreditation requirements (e.g., CLIA, CAP, HIPAA, FDA).
+:::
+
+::: {.callout-important title="Secondary Responsibilities" icon="false" appearance="minimal"}
+-   Guide risk assessments and documentation practices.
+-   Monitor for ongoing regulatory changes impacting AI use.
+-   Oversee management of adverse events and reporting obligations.
+:::
+
+::: {.callout-important title="Deal Breakers" icon="false" appearance="minimal"}
+-   Non-compliance with regulatory or accreditation standards.
+-   Insufficient documentation or inability to audit system performance and decision-making.
+:::
+
+## Data Science/Analytics
+
+::: {.callout-important title="Primary Responsibility"}
+Develop, validate, and monitor AI models to ensure accuracy, fairness, and relevance to clinical needs.
+:::
+
+::: {.callout-important title="Secondary Responsibilities" icon="false" appearance="minimal"}
+-   Collaborate with clinicians to define use cases and performance metrics.
+-   Oversee validation, verification, and ongoing clinical performance monitoring of AI systems.
+-   Provide transparency regarding model limitations and potential biases.
+:::
+
+::: {.callout-important title="Deal Breakers" icon="false" appearance="minimal"}
+-   Insufficient, biased, or unrepresentative data.
+-   Lack of stakeholder engagement or infrastructure support. 
+:::
+
+## Front-line Providers/Patients
+
+::: {.callout-important title="Primary Responsibility"}
+Ensure that AI tools support and enhance patient care and improve provider experience.
+:::
+
+::: {.callout-important title="Secondary Responsibilities" icon="false" appearance="minimal"}
+-   Participate in user feedback and acceptability assessments.
+-   Identify unintended consequences or workflow disruptions.
+-   Provide input on clinical relevance and user experience.
+:::
+
+::: {.callout-important title="Deal Breakers" icon="false" appearance="minimal"}
+-   Loss of provider autonomy or increased workload.
+-   Lack of trust or understanding regarding AI system recommendations.
+:::
+:::
