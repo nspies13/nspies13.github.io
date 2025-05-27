@@ -5,14 +5,14 @@
 ```{r}
 #| echo: false
 
-#source("helpers/_package_loader.R")
+source("helpers/_package_loader.R")
 ```
 
 A crucial aspect of deploying machine learning (ML) models in clinical laboratories is ensuring that they achieve their desired goals without introducing or exacerbating inequity in healthcare delivery. We will examine these vulnerabilities through the lens of fairness concepts and their metrics during the model validation process. Azimi and Zaydman @azimi2023 have provided a more comprehensive overview of the key considerations for laboratory medicine.
 
 ## Fairness Concepts
 
-::: columns
+:::::: columns
 ::: {.column width="50%"}
 ![Concepts of algorithmic fairness, adapted from [Azimi and Zaydman](https://pubmed.ncbi.nlm.nih.gov/36610413/).](images/algorithmic_fairness_concepts_schematic_full.png)
 :::
@@ -29,7 +29,7 @@ Predictive performance can be contextualized within three concepts of group fair
 
 -   ***Predictive parity***, where PPV and NPV are identical across subgroups.
 :::
-:::
+::::::
 
 ## Assessing Fairness in Contamination Predictions
 
@@ -62,7 +62,7 @@ validation_with_sex_labels <-
 
 ```
 
-::: columns
+:::::: columns
 ::: {.column width="55%" vertical-align="bottom"}
 Let's explore how we will calculate these metrics using our normal saline predictor in *R*.
 
@@ -83,7 +83,7 @@ table(validation_with_sex_labels$truth, validation_with_sex_labels$sex) |> knitr
 
 ```
 :::
-:::
+::::::
 
 ### Calculating Group-Wise Performance Metrics
 
@@ -125,7 +125,7 @@ validation_fairness <-
 fairness_table <- validation_fairness |> knitr::kable(digits = 3)
 ```
 
-::: columns
+:::::: columns
 ::: {.column width="50%"}
 ```{r}
 #| echo: false
@@ -142,7 +142,7 @@ metric_table
 fairness_table
 ```
 :::
-:::
+::::::
 
 ### Conclusions
 

@@ -26,6 +26,8 @@ website:
         file: applicability.qmd
       - text: "Glossary"
         file: glossary.qmd
+      - text: "Activity 2: War Games"
+        file: activity2_wargames.qmd
 
 format:
   html:
