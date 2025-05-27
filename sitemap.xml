@@ -2,42 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://nspies13.github.io/algorithmic_fairness.html</loc>
-    <lastmod>2024-07-19T16:39:16.638Z</lastmod>
+    <lastmod>2025-05-27T02:03:16.028Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/metric_selection.html</loc>
-    <lastmod>2024-07-19T16:39:25.171Z</lastmod>
+    <lastmod>2025-05-27T02:03:17.874Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/decision_boundaries.html</loc>
-    <lastmod>2024-07-19T16:39:33.777Z</lastmod>
+    <lastmod>2025-05-27T02:03:19.828Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/explainability.html</loc>
-    <lastmod>2024-07-19T16:39:42.299Z</lastmod>
+    <lastmod>2025-05-27T02:03:21.770Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/getting_started.html</loc>
-    <lastmod>2024-07-19T16:39:50.509Z</lastmod>
+    <lastmod>2025-05-27T02:03:23.598Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/index.html</loc>
-    <lastmod>2024-07-19T16:39:52.228Z</lastmod>
+    <lastmod>2025-05-27T02:03:25.382Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/applicability.html</loc>
-    <lastmod>2024-07-19T16:40:01.473Z</lastmod>
+    <lastmod>2025-05-27T02:03:28.588Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/glossary.html</loc>
-    <lastmod>2024-07-19T16:40:02.630Z</lastmod>
+    <lastmod>2025-05-27T02:03:29.089Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/about.html</loc>
-    <lastmod>2024-07-19T16:40:11.288Z</lastmod>
+    <lastmod>2025-05-27T02:03:30.882Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/ground_truth.html</loc>
-    <lastmod>2024-07-19T16:40:19.812Z</lastmod>
+    <lastmod>2025-05-27T02:03:32.792Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nspies13.github.io/activity2_wargames.html</loc>
+    <lastmod>2025-05-27T02:03:33.321Z</lastmod>
   </url>
 </urlset>

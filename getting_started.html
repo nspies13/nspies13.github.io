@@ -4551,6 +4551,12 @@ border-left: 5px solid #3B5378;
  <span class="menu-text">Glossary</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity2_wargames.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activity 2: War Games</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -4611,7 +4617,7 @@ border-left: 5px solid #3B5378;
 <section id="setting-up-our-environment" class="level2">
 <h2 class="anchored" data-anchor-id="setting-up-our-environment">Setting Up Our Environment</h2>
 <p>With the .Rproj file opened, our first task will be to install the necessary packages by running the code below.</p>
-<div class="cell" data-hash="getting_started_cache/html/unnamed-chunk-1_53b6a30b9f8e8e78710f90d9a2536022">
+<div class="cell" data-hash="getting_started_cache/html/unnamed-chunk-1_32985c22f3222174f830a9a5794c3ec2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Install renv if you don&#39;t already have it</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">&quot;renv&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">&quot;renv&quot;</span>)</span>
@@ -4621,7 +4627,7 @@ border-left: 5px solid #3B5378;
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">restore</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next, we’ll load the most relevant libraries and set a random seed for reproducibility.</p>
-<div class="cell" data-hash="getting_started_cache/html/unnamed-chunk-2_2641cf3127fc3598897d172761f3ae6f">
+<div class="cell" data-hash="getting_started_cache/html/unnamed-chunk-2_f0e3ae2bde2db3a11adaef0a97357034">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Libraries</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
@@ -4632,7 +4638,7 @@ border-left: 5px solid #3B5378;
 </section>
 <section id="download-and-load-the-example-data-and-models" class="level2">
 <h2 class="anchored" data-anchor-id="download-and-load-the-example-data-and-models">Download and Load the Example Data and Models</h2>
-<div class="cell" data-hash="getting_started_cache/html/unnamed-chunk-3_665f34467fbd3bfaf9d52182d9bf26d4">
+<div class="cell" data-hash="getting_started_cache/html/unnamed-chunk-3_5d5c7dae09f6dcd57343813112d493b2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Download and Import BMP Data Directly from FigShare </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">read_feather</span>(<span class="st">&quot;https://figshare.com/ndownloader/files/45407401&quot;</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>validation <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">read_feather</span>(<span class="st">&quot;https://figshare.com/ndownloader/files/45407398&quot;</span>)</span>
