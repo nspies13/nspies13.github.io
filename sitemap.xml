@@ -2,46 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://nspies13.github.io/algorithmic_fairness.html</loc>
-    <lastmod>2025-06-27T17:57:58.633Z</lastmod>
+    <lastmod>2025-06-27T18:01:13.247Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/metric_selection.html</loc>
-    <lastmod>2025-06-27T17:58:00.495Z</lastmod>
+    <lastmod>2025-06-27T18:01:15.263Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/decision_boundaries.html</loc>
-    <lastmod>2025-06-27T17:58:02.421Z</lastmod>
+    <lastmod>2025-06-27T18:01:17.361Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/explainability.html</loc>
-    <lastmod>2025-06-27T17:58:04.357Z</lastmod>
+    <lastmod>2025-06-27T18:01:19.383Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/getting_started.html</loc>
-    <lastmod>2025-06-27T17:58:06.193Z</lastmod>
+    <lastmod>2025-06-27T18:01:21.483Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/index.html</loc>
-    <lastmod>2025-06-27T17:58:07.996Z</lastmod>
+    <lastmod>2025-06-27T18:01:23.360Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/applicability.html</loc>
-    <lastmod>2025-06-27T17:58:11.212Z</lastmod>
+    <lastmod>2025-06-27T18:01:26.640Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/glossary.html</loc>
-    <lastmod>2025-06-27T17:58:11.710Z</lastmod>
+    <lastmod>2025-06-27T18:01:27.128Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/about.html</loc>
-    <lastmod>2025-06-27T17:58:13.507Z</lastmod>
+    <lastmod>2025-06-27T18:01:29.012Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/ground_truth.html</loc>
-    <lastmod>2025-06-27T17:58:15.409Z</lastmod>
+    <lastmod>2025-06-27T18:01:31.121Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nspies13.github.io/activity1.html</loc>
+    <lastmod>2025-06-27T18:01:31.517Z</lastmod>
   </url>
   <url>
     <loc>https://nspies13.github.io/activity2_wargames.html</loc>
-    <lastmod>2025-06-27T17:58:15.956Z</lastmod>
+    <lastmod>2025-06-27T18:01:32.102Z</lastmod>
   </url>
 </urlset>
