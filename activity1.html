@@ -246,35 +246,35 @@ ul.task-list li input[type="checkbox"] {
 #| standalone: true
 #| viewerHeight: 600
 
+webr::install("munsell")
+
+suppressPackageStartupMessages(library(bslib))
+suppressPackageStartupMessages(library(shiny))
+
 ui &lt;- fluidPage(
-    fluidRow(
-        column(2),
-        column(8, br(), sliderInput("prevalence", "Positive Class Prevalence:",
-                                    min = 0.05, max = 0.95, value = 0.5, step = 0.05, ticks = FALSE)),
-        column(2)
-    ),
-    titlePanel("Impact of Class Imbalance on Performance Metrics"),
-        mainPanel(
-            fluidRow(
-                column(6, plotOutput("rocPlot")),
-                column(6, plotOutput("prPlot"))
-            ),
-            fluidRow(
-                column(12, plotOutput("metricPlot"))
-            )
-        )
+  fluidRow(
+    column(2),
+    column(8, br(), sliderInput("prevalence", "Positive Class Prevalence:",
+                                min = 0.05, max = 0.95, value = 0.5, step = 0.05, ticks = FALSE)),
+    column(2)
+  ),
+  titlePanel("Impact of Class Imbalance on Performance Metrics"),
+  fluidRow(
+    column(6, plotOutput("rocPlot")),
+    column(6, plotOutput("prPlot"))
+  ),
+  fluidRow(
+    column(12, plotOutput("metricPlot"))
+  )
 )
 
 server &lt;- function(input, output) {
-    
+  
   suppressPackageStartupMessages(library(shiny))
   suppressPackageStartupMessages(library(tidyverse))
-  suppressPackageStartupMessages(library(tidymodels))
-  suppressPackageStartupMessages(library(scico))
-  suppressPackageStartupMessages(library(ggpubr))
-  suppressPackageStartupMessages(library(shiny))
+  suppressPackageStartupMessages(library(yardstick))
   suppressPackageStartupMessages(library(bslib))
-
+  
   theme_ns &lt;- theme(text = element_text(family = "Helvetica"),
                     title = element_text(size = 24, margin = margin(0, 0, 8, 0)),
                     plot.subtitle = element_text(size = 20, face = "plain", hjust = 0),
