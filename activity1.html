@@ -217,19 +217,31 @@ div.csl-indent {
 <section id="case-1-evaluating-ai-use-cases" class="level2">
 <h2 class="anchored" data-anchor-id="case-1-evaluating-ai-use-cases">Case #1: Evaluating AI Use-Cases</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Quality Control</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Quality Control</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Autoverification</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">SPEP Interpretation</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <section id="background" class="level3">
 <h3 class="anchored" data-anchor-id="background">Background</h3>
 <p>The goal of the QC process is to identify and remove sources of error stemming from avoidable factors in how our analyzers measure results. While many factors contribute to analytical performance, the errors that result can be classified into 2 primary categories: <strong>poor accuracy</strong> and <strong>poor precision.</strong> “Bias” refers to inaccuracy in a measurement that routinely over- or underestimates the true result, such as calibration drift. Imprecision, on the other hand, refers to random measurement error without a discernable pattern.</p>
-<div class="columns">
-<div class=".column">
-<p><img src="images/clipboard-621612500.png" class="img-fluid" width="567"> ::: .column <img src="images/clipboard-814283065.png" class="img-fluid" width="568"></p>
-</div>
-</div>
+<p><img src="images/clipboard-621612500.png" class="img-fluid" width="567"></p>
 <p>The clinical laboratory has two primary tools for quality control: internal quality control (IQC) standards and real-time patient results. IQC consists of periodically measuring a standard material with known concentration. This allows for rapid, straightforward error detection and troubleshooting, but requires instruments to be taken offline for a period of time. Patient-based, real-time quality control (PBRTQC) relies on observing patterns of variation within the routine clinical testing to identify errors in the intervals between IQC is performed. It is often more complex, given the competing signals present in the data stream, but can be valuable in reducing the impact of analytical issues by detecting them more rapidly.</p>
 <p>A machine learning solution that incorporates these complementary data streams could be a valuable addition to the clinical laboratory’s quality toolkit.</p>
+</section>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<section id="background-1" class="level3">
+<h3 class="anchored" data-anchor-id="background-1">Background</h3>
+<p>Autoverification refers to the automated release of laboratory test results that are unlikely to have been the result of a preanalytical or analytical error, bypassing manual review by a technologist or pathologist. The primary objective is to improve laboratory efficiency, reduce turnaround time, and minimize the risk of human error in the post-analytical phase. Traditional autoverification rules are typically built via LIS rule sets that incorporates analytic flags, delta checks, reference intervals, and other decision thresholds derived from expert consensus or regulatory guidance (e.g., CLSI AUTO10-A).</p>
+<p><img src="images/clipboard-403162337.png" class="img-fluid"></p>
+<p>However, conventional autoverification systems can struggle with the complexity and nuance of real-world patient data, particularly in the presence of atypical clinical scenarios or concurrent pre-analytical and analytical confounders. Errors may occur due to rigid or incomplete rules, leading either to inappropriate autoverification or excessive manual holds.</p>
+<p>AI–driven autoverification aims to enhance performance by learning patterns from large datasets of historical results, including rare or complex scenarios. By integrating multiple data sources (patient demographics, clinical context, analyzer flags, historical trends), AI-based autoverification systems have the potential to optimize both sensitivity (error detection) and specificity (avoiding unnecessary manual review), improving both quality and operational efficiency.</p>
+</section>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<section id="background-2" class="level3">
+<h3 class="anchored" data-anchor-id="background-2">Background</h3>
+<p>Serum protein electrophoresis (SPEP) is a critical diagnostic tool for identifying and characterizing monoclonal gammopathies and other disorders of serum protein distribution. Accurate interpretation of SPEP patterns requires specialized expertise to distinguish between polyclonal and monoclonal patterns, recognize atypical presentations, and correlate findings with clinical and laboratory context. Errors in interpretation can result from subtle pattern recognition challenges, background artifacts, or the presence of confounding clinical conditions (e.g., acute-phase response, nephrotic syndrome).</p>
+<p>AI-based SPEP interpretation could automate the identification of monoclonal peaks and other clinically significant patterns. By training on large sets of expert-annotated electrophoresis tracings, such systems can support standardized, accurate, and efficient result interpretation.</p>
 </section>
 </div>
 </div>
