@@ -20,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -180,7 +199,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#activity-1-common-pitfalls" id="toc-activity-1-common-pitfalls" class="nav-link active" data-scroll-target="#activity-1-common-pitfalls">Activity 1: Common Pitfalls</a>
   <ul class="collapse">
-  <li><a href="#case-1-evaluating-quality-control-as-an-ai-use-case" id="toc-case-1-evaluating-quality-control-as-an-ai-use-case" class="nav-link" data-scroll-target="#case-1-evaluating-quality-control-as-an-ai-use-case">Case #1: Evaluating Quality Control as an AI Use-Case</a></li>
+  <li><a href="#case-1-evaluating-ai-use-cases" id="toc-case-1-evaluating-ai-use-cases" class="nav-link" data-scroll-target="#case-1-evaluating-ai-use-cases">Case #1: Evaluating AI Use-Cases</a></li>
   <li><a href="#case-2-rare-event-detection" id="toc-case-2-rare-event-detection" class="nav-link" data-scroll-target="#case-2-rare-event-detection">Case #2: Rare Event Detection</a></li>
   <li><a href="#case-3-exploring-explainability" id="toc-case-3-exploring-explainability" class="nav-link" data-scroll-target="#case-3-exploring-explainability">Case #3: Exploring Explainability</a></li>
   </ul></li>
@@ -195,42 +214,52 @@ ul.task-list li input[type="checkbox"] {
 <section id="activity-1-common-pitfalls" class="level1">
 <h1>Activity 1: Common Pitfalls</h1>
 <hr>
-<section id="case-1-evaluating-quality-control-as-an-ai-use-case" class="level2">
-<h2 class="anchored" data-anchor-id="case-1-evaluating-quality-control-as-an-ai-use-case">Case #1: Evaluating Quality Control as an AI Use-Case</h2>
+<section id="case-1-evaluating-ai-use-cases" class="level2">
+<h2 class="anchored" data-anchor-id="case-1-evaluating-ai-use-cases">Case #1: Evaluating AI Use-Cases</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Quality Control</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <section id="background" class="level3">
 <h3 class="anchored" data-anchor-id="background">Background</h3>
 <p>The goal of the QC process is to identify and remove sources of error stemming from avoidable factors in how our analyzers measure results. While many factors contribute to analytical performance, the errors that result can be classified into 2 primary categories: <strong>poor accuracy</strong> and <strong>poor precision.</strong> “Bias” refers to inaccuracy in a measurement that routinely over- or underestimates the true result, such as calibration drift. Imprecision, on the other hand, refers to random measurement error without a discernable pattern.</p>
-<p><img src="images/clipboard-621612500.png" class="img-fluid" width="567"></p>
+<div class="columns">
+<div class=".column">
+<p><img src="images/clipboard-621612500.png" class="img-fluid" width="567"> ::: .column <img src="images/clipboard-814283065.png" class="img-fluid" width="568"></p>
+</div>
+</div>
 <p>The clinical laboratory has two primary tools for quality control: internal quality control (IQC) standards and real-time patient results. IQC consists of periodically measuring a standard material with known concentration. This allows for rapid, straightforward error detection and troubleshooting, but requires instruments to be taken offline for a period of time. Patient-based, real-time quality control (PBRTQC) relies on observing patterns of variation within the routine clinical testing to identify errors in the intervals between IQC is performed. It is often more complex, given the competing signals present in the data stream, but can be valuable in reducing the impact of analytical issues by detecting them more rapidly.</p>
 <p>A machine learning solution that incorporates these complementary data streams could be a valuable addition to the clinical laboratory’s quality toolkit.</p>
-<p><img src="images/clipboard-814283065.png" class="img-fluid" width="568"></p>
 </section>
+</div>
+</div>
+</div>
 <section id="task" class="level3">
 <h3 class="anchored" data-anchor-id="task">Task</h3>
 <p>Discuss the questions below within your groups. Each tab focuses on a unique step in the complete machine learning life cycle, with its own objectives and considerations. A <strong>good AI use-case</strong> will have <strong>clear, justifiable answers</strong> to each of these questions.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Training</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Validation</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Deployment</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Monitoring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">Other</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Training</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Validation</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Deployment</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">Monitoring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-5" role="tab" aria-controls="tabset-2-5" aria-selected="false">Other</a></li></ul>
 <div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p><em>1) What should the model be predicting?</em></p>
 <p><em>2) What should we use as a ground truth label?</em></p>
 <p><em>3) What should be included in the training data set?</em></p>
 </div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p><em>1) How should performance be measured?</em></p>
 <p><em>2) What thresholds should be considered acceptable?</em></p>
 <p><em>3) What data should be used in the validation study?</em></p>
 </div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
 <p><em>1) What potential benefits could be expected?</em></p>
 <p><em>2) What potential harms might be introduced?</em></p>
 <p><em>3) Will the predictions be helpful in changing practice?</em></p>
 </div>
-<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
 <p><em>1) How will we monitor performance?</em></p>
 <p><em>2) What will we do if performance deteriorates?</em></p>
 </div>
-<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<div id="tabset-2-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-5-tab">
 <p><em>1) Are there human factors to consider?</em></p>
 <p><em>2) Are there regulatory requirements to consider?</em></p>
 </div>
@@ -252,15 +281,17 @@ suppressPackageStartupMessages(library(bslib))
 suppressPackageStartupMessages(library(shiny))
 
 ui &lt;- page_fillable(
-    fluidRow(column(9, titlePanel("Impact of Class Imbalance on Performance Metrics")),
-             column(3, sliderInput("prevalence", "Positive Class Prevalence:",
-                                    min = 0.005, max = 0.95, value = 0.5, step = 0.005, ticks = FALSE)), 
+    fluidRow(column(8, titlePanel("Evaluation with Imbalanced Classes")),
+             column(2, sliderInput("prevalence", "Class Balance:",
+                                    min = 0.005, max = 1, value = 1, step = 0.005, ticks = FALSE)),
+             column(2, sliderInput("separation", "Separation:",
+                                    min = 0.05, max = 0.5, value = 0.5, step = 0.05, ticks = FALSE)),
              width = "100%", style = "height: 80px;"
     ),
     fluidRow(
-        column(5, plotOutput("densityPlot", width = "100%", height = "500px")),
+        column(4, plotOutput("densityPlot", width = "100%", height = "500px")),
         column(4, plotOutput("metricPlot", width = "100%", height = "500px")),
-        column(3,
+        column(4,
       fluidRow(
         plotOutput("rocPlot", width = "100%", height = "250px")
       ),
@@ -295,29 +326,30 @@ server &lt;- function(input, output) {
   sim_data &lt;- reactive({
       set.seed(123)
       prevalence &lt;- input$prevalence[1]
+      separation &lt;- input$separation[1]
       n &lt;- 10000
       n_pos &lt;- round(n * prevalence)
       n_neg &lt;- n
       
-      pos &lt;- tibble(result = rnorm(n_pos, mean = 0.65, sd = 0.15), label = "Positive")
-      neg &lt;- tibble(result = rnorm(n_neg, mean = 0.35, sd = 0.15), label = "Negative")
+      pos &lt;- tibble(result = rnorm(n_pos, mean = 0.5 + separation/2, sd = 0.15), label = "Pos")
+      neg &lt;- tibble(result = rnorm(n_neg, mean = 0.5 - separation/2, sd = 0.15), label = "Neg")
       
       out_prev &lt;- 
           bind_rows(pos, neg) %&gt;%
-              mutate(label = factor(label, levels = c("Positive", "Negative")),
-                     estimate = factor(ifelse(result &gt; 0.5, "Positive", "Negative"), 
-                                       levels = c("Positive", "Negative")),
-                     prevalence = factor(prevalence))
+              mutate(label = factor(label, levels = c("Pos", "Neg")),
+                     estimate = factor(ifelse(result &gt; 0.5, "Pos", "Neg"), 
+                                       levels = c("Pos", "Neg")),
+                     prevalence = factor("Current"))
       
       out_control &lt;- 
           bind_rows(
-              rnorm(5000, mean = 0.65, sd = 0.15) %&gt;% tibble(result = ., label = "Positive"),
-              rnorm(5000, mean = 0.35, sd = 0.15) %&gt;% tibble(result = ., label = "Negative"),
+              rnorm(5000, mean = 0.75, sd = 0.15) %&gt;% tibble(result = ., label = "Pos"),
+              rnorm(5000, mean = 0.25, sd = 0.15) %&gt;% tibble(result = ., label = "Neg"),
           ) |&gt; 
-          mutate(label = factor(label, levels = c("Positive", "Negative")),
-                 estimate = factor(ifelse(result &gt; 0.5, "Positive", "Negative"), 
-                                   levels = c("Positive", "Negative")),
-                 prevalence = factor(1))
+          mutate(label = factor(label, levels = c("Pos", "Neg")),
+                 estimate = factor(ifelse(result &gt; 0.5, "Pos", "Neg"), 
+                                   levels = c("Pos", "Neg")),
+                 prevalence = factor("Baseline"))
       
       bind_rows(out_prev, out_control)
   })
@@ -332,22 +364,22 @@ server &lt;- function(input, output) {
             summarise(count = n(), .groups = "drop")
         
         ggplot() +
-            geom_density(data = gg_input, aes(result, y = after_stat(count), fill = label), alpha = 0.5, linewidth = 0.25, bounds = c(0, 1)) +
-            geom_text(data = counts[1,3], aes(label = count), x = 1, y = 35000, size = 3, fontface = "bold") +
-            geom_text(data = counts[2,3], aes(label = count), x = 1, y = 40000, size = 3, fontface = "bold") +
-            geom_text(data = counts[3,3], aes(label = count), x = 0.9, y = 35000, size = 3, fontface = "bold") +
-            geom_text(data = counts[4,3], aes(label = count), x = 0.9, y = 40000, size = 3, fontface = "bold") +
-            annotate("text", x = 0.95, y = 44000, label = "Truth", fontface = "bold", size = 4) +
-            annotate("text", x = 0.825, y = 37500, label = "Estimate", fontface = "bold", size = 4, hjust = 1) +
-            annotate("segment", x = 0.84, y = 37500, xend = 1.05, yend = 37500, color = "gray50") +
-            annotate("segment", x = 0.95, y = 32500, xend = 0.95, yend = 42500, color = "gray50") +
-            annotate("rect", xmin = 0.84, ymin = 32500, xmax = 1.05, ymax = 42500, fill = NA, color = "black") +
+            geom_density(data = gg_input, aes(result, y = after_stat(count), fill = fct_rev(label)), alpha = 0.5, linewidth = 0.25, bounds = c(0, 1)) +
+            #geom_text(data = counts[1,3], aes(label = count), x = 1, y = 35000, size = 3, fontface = "bold") +
+            #geom_text(data = counts[2,3], aes(label = count), x = 1, y = 40000, size = 3, fontface = "bold") +
+            #geom_text(data = counts[3,3], aes(label = count), x = 0.9, y = 35000, size = 3, fontface = "bold") +
+            #geom_text(data = counts[4,3], aes(label = count), x = 0.9, y = 40000, size = 3, fontface = "bold") +
+            #annotate("text", x = 0.95, y = 44000, label = "Truth", fontface = "bold", size = 4) +
+            #annotate("text", x = 0.825, y = 37500, label = "Estimate", fontface = "bold", size = 4, hjust = 1) +
+            #annotate("segment", x = 0.84, y = 37500, xend = 1.05, yend = 37500, color = "gray50") +
+            #annotate("segment", x = 0.95, y = 32500, xend = 0.95, yend = 42500, color = "gray50") +
+            #annotate("rect", xmin = 0.84, ymin = 32500, xmax = 1.05, ymax = 42500, fill = NA, color = "black") +
             geom_vline(xintercept = 0.5, linetype = "dashed", color = "black") +
             labs(title = "Event Distributions", x = "Predicted Probability", y = "Relative Frequency") +
             coord_cartesian(clip = "off") +
             scale_x_continuous(breaks = c(0, 0.5, 1), limits = c(0, 1.06)) +
-            scale_fill_manual(values = c("Positive" = "darkred", "Negative" = "grey50")) +
-            theme(axis.text.y = element_blank(), legend.position = c(0.15, 0.85), legend.title = element_blank(), legend.background = element_blank())
+            scale_fill_manual(values = c("Pos" = "darkred", "Neg" = "darkblue")) +
+            theme(axis.text.y = element_blank(), legend.position = c(0.9, 0.9), legend.title = element_blank(), legend.background = element_blank())
         
     })
   
@@ -362,7 +394,7 @@ server &lt;- function(input, output) {
           scale_alpha_manual(values = c(1, 0.25)) +
           geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "grey50") +
           labs(x = "1 - Specificity", y = "Sensitivity", title = "ROC Curves") + 
-          theme(axis.text = element_blank(), legend.position = c(0.8, 0.2), legend.title = element_blank(), legend.background = element_blank())
+          theme(axis.text = element_blank(), legend.position = c(0.75, 0.2), legend.title = element_blank(), legend.background = element_blank())
   })
   
   output$prPlot &lt;- renderPlot({
@@ -375,7 +407,7 @@ server &lt;- function(input, output) {
           scale_color_manual(values = c("darkred", "grey50")) +
           scale_alpha_manual(values = c(1, 0.25)) +
           labs(title = "PR Curves", x = "Recall", y = "Precision") + 
-          theme(axis.text = element_blank(), legend.position = c(0.2, 0.2), legend.title = element_blank(), legend.background = element_blank())
+          theme(axis.text = element_blank(), legend.position = c(0.25, 0.2), legend.title = element_blank(), legend.background = element_blank())
   })
   
   output$metricPlot &lt;- renderPlot({
@@ -393,9 +425,10 @@ server &lt;- function(input, output) {
                                      labels = c("Acc", "Sens", "Spec", "NPV", "PPV", "MCC")))
       
       ggplot(metrics, aes(x = Metric, y = Value, fill = prevalence)) +
-          geom_col(position = position_dodge(), show.legend = FALSE) +
+          geom_col(position = position_dodge(1), show.legend = FALSE) +
+          geom_text(aes(label = Value), position = position_dodge(1), vjust = -1) + 
           facet_wrap(~Metric, nrow = 2, scales = "free_x") + 
-          scale_y_continuous(limits = c(0, 1), breaks = c(0, 1)) + 
+          scale_y_continuous(limits = c(0, 1), breaks = c(0, 1), expand = expansion(add = c(0, 0.05))) + 
           scale_fill_manual(values = c("grey75", "darkred")) + 
           labs(title = "Performance Metrics", y = "Metric Value") +
           theme(axis.text = element_text(size = 12), axis.title.x.bottom = element_blank(), strip.text = element_blank())
@@ -406,12 +439,23 @@ shinyApp(ui = ui, server = server)</code></pre>
 </section>
 <section id="case-3-exploring-explainability" class="level2">
 <h2 class="anchored" data-anchor-id="case-3-exploring-explainability">Case #3: Exploring Explainability</h2>
+<section id="explaining-a-model-globally" class="level3">
+<h3 class="anchored" data-anchor-id="explaining-a-model-globally">Explaining a Model “Globally”</h3>
+<p>Explainability techniques are largely classified into those that explain models, or <em>global</em> explanations, and those that explain individual predictions, or <em>local</em> explanations. Estimating the aggregate impact of each feature on model predictions across a full data set can be vital in identifying abnormal, inequitable, or harmful behaviors. Let’s explore how we can use these tools to evaluate how predicted probabilities changes across varying concentrations of our features.</p>
+<p>One popular tool that allows for both global and local explanations is <u>SH</u>apley <u>A</u>dditive ex<u>P</u>lanation (SHAP) values<span class="citation" data-cites="lundberg2017"><sup><a href="#ref-lundberg2017" role="doc-biblioref">1</a></sup></span>. The figure below presents the global view of the SHAP values for a model that predicts troponin results in asymptomatic outpatients.</p>
+<p><img src="images/clipboard-1566754423.png" class="img-fluid"></p>
+
 
 
 </section>
 </section>
+</section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" role="list">
+<div id="ref-lundberg2017" class="csl-entry" role="listitem">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Lundberg S, Lee S-I. A unified approach to interpreting model predictions. 2017;Available from: <a href="https://arxiv.org/abs/1705.07874">https://arxiv.org/abs/1705.07874</a></div>
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
