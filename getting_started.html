@@ -4559,8 +4559,14 @@ border-left: 5px solid #3B5378;
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./activity2_wargames.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Activity 2: Implementation Role-Playing</span></a>
+  <a href="./activity2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activity 2: Rare Event Detection</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./activity3_wargames.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Activity 3: Implementation Role-Playing</span></a>
   </div>
 </li>
     </ul>
@@ -4644,14 +4650,14 @@ border-left: 5px solid #3B5378;
 </section>
 <section id="download-and-load-the-example-data-and-models" class="level2">
 <h2 class="anchored" data-anchor-id="download-and-load-the-example-data-and-models">Download and Load the Example Data and Models</h2>
-<div class="cell" data-hash="getting_started_cache/html/unnamed-chunk-3_5d5c7dae09f6dcd57343813112d493b2">
+<div class="cell" data-hash="getting_started_cache/html/unnamed-chunk-3_43a0e7be1b8703c34c8f2ced9a9385ff">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Download and Import BMP Data Directly from FigShare </span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">read_feather</span>(<span class="st">&quot;https://figshare.com/ndownloader/files/45407401&quot;</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>validation <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">read_feather</span>(<span class="st">&quot;https://figshare.com/ndownloader/files/45407398&quot;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">read_feather</span>(<span class="st">&quot;https://api.figshare.com/v2/file/download/45407401&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>validation <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">read_feather</span>(<span class="st">&quot;https://api.figshare.com/v2/file/download/45407398&quot;</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Download and Import Models Directly from FigShare</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>model_realtime <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">&quot;https://figshare.com/ndownloader/files/45631488&quot;</span>) <span class="sc">|&gt;</span> <span class="fu">pluck</span>(<span class="st">&quot;model&quot;</span>) <span class="sc">|&gt;</span> bundle<span class="sc">::</span><span class="fu">unbundle</span>()</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>model_retrospective <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">&quot;https://figshare.com/ndownloader/files/45631491&quot;</span>) <span class="sc">|&gt;</span> <span class="fu">pluck</span>(<span class="st">&quot;model&quot;</span>) <span class="sc">|&gt;</span> bundle<span class="sc">::</span><span class="fu">unbundle</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>model_realtime <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">&quot;https://api.figshare.com/v2/file/download/45631488&quot;</span>) <span class="sc">|&gt;</span> <span class="fu">pluck</span>(<span class="st">&quot;model&quot;</span>) <span class="sc">|&gt;</span> bundle<span class="sc">::</span><span class="fu">unbundle</span>()</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>model_retrospective <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">&quot;https://api.figshare.com/v2/file/download/45631491&quot;</span>) <span class="sc">|&gt;</span> <span class="fu">pluck</span>(<span class="st">&quot;model&quot;</span>) <span class="sc">|&gt;</span> bundle<span class="sc">::</span><span class="fu">unbundle</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>With these commands run, you should be all set to code along with the remainder of the content in this site.</p>
 

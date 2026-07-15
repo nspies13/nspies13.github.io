@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Practical Machine Learning in the Clinical Laboratory – activity1</title>
+<title>Practical Machine Learning in the Clinical Laboratory – activity2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,26 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -58,6 +39,11 @@ div.csl-indent {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<meta name="shinylive:serviceworker_dir" content=".">
+<script src="site_libs/quarto-contrib/shinylive-0.10.12/shinylive/load-shinylive-sw.js" type="module"></script>
+<script src="site_libs/quarto-contrib/shinylive-0.10.12/shinylive/run-python-blocks.js" type="module"></script>
+<link href="site_libs/quarto-contrib/shinylive-0.10.12/shinylive/shinylive.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/shinylive-quarto-css/shinylive-quarto.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -91,7 +77,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./activity1.html">Activity 1: Common Pitfalls</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./activity2.html">Activity 2: Rare Event Detection</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -172,13 +158,13 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./activity1.html" class="sidebar-item-text sidebar-link active">
+  <a href="./activity1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Activity 1: Common Pitfalls</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./activity2.html" class="sidebar-item-text sidebar-link">
+  <a href="./activity2.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Activity 2: Rare Event Detection</span></a>
   </div>
 </li>
@@ -198,11 +184,7 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#activity-1-common-pitfalls" id="toc-activity-1-common-pitfalls" class="nav-link active" data-scroll-target="#activity-1-common-pitfalls">Activity 1: Common Pitfalls</a>
-  <ul class="collapse">
-  <li><a href="#case-1-evaluating-ai-use-cases" id="toc-case-1-evaluating-ai-use-cases" class="nav-link" data-scroll-target="#case-1-evaluating-ai-use-cases">Case #1: Evaluating AI Use-Cases</a></li>
-  <li><a href="#case-2-exploring-explainability" id="toc-case-2-exploring-explainability" class="nav-link" data-scroll-target="#case-2-exploring-explainability">Case #2: Exploring Explainability</a></li>
-  </ul></li>
+  <li><a href="#activity-2-rare-event-detection" id="toc-activity-2-rare-event-detection" class="nav-link active" data-scroll-target="#activity-2-rare-event-detection">Activity 2: Rare Event Detection</a></li>
   </ul>
 </nav>
     </div>
@@ -211,90 +193,172 @@ div.csl-indent {
 
 
 
-<section id="activity-1-common-pitfalls" class="level1">
-<h1>Activity 1: Common Pitfalls</h1>
+<section id="activity-2-rare-event-detection" class="level1">
+<h1>Activity 2: Rare Event Detection</h1>
 <hr>
-<section id="case-1-evaluating-ai-use-cases" class="level2">
-<h2 class="anchored" data-anchor-id="case-1-evaluating-ai-use-cases">Case #1: Evaluating AI Use-Cases</h2>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Autoverification</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">SPEP Interpretation</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">AI-Generated Interpretive Comments</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<section id="background" class="level3">
-<h3 class="anchored" data-anchor-id="background">Background</h3>
-<p>Autoverification refers to the automated release of laboratory test results that are unlikely to have been the result of a preanalytical or analytical error, bypassing manual review by a technologist or pathologist. The primary objective is to improve laboratory efficiency, reduce turnaround time, and minimize the risk of human error in the post-analytical phase. Traditional autoverification rules are typically built via LIS rule sets that incorporates analytic flags, delta checks, reference intervals, and other decision thresholds derived from expert consensus or regulatory guidance (e.g., CLSI AUTO10-A).</p>
-<p>However, conventional autoverification systems can struggle with the complexity and nuance of real-world patient data, particularly in the presence of atypical clinical scenarios or concurrent pre-analytical and analytical confounders. Errors may occur due to rigid or incomplete rules, leading either to inappropriate autoverification or excessive manual holds.</p>
-<p>AI–driven autoverification aims to enhance performance by learning patterns from large datasets of historical results, including rare or complex scenarios. By integrating multiple data sources (patient demographics, clinical context, analyzer flags, historical trends), AI-based autoverification systems have the potential to optimize both sensitivity (error detection) and specificity (avoiding unnecessary manual review), improving both quality and operational efficiency.</p>
-</section>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<section id="background-1" class="level3">
-<h3 class="anchored" data-anchor-id="background-1">Background</h3>
-<p>Serum protein electrophoresis (SPEP) is a critical diagnostic tool for identifying and characterizing monoclonal gammopathies and other disorders of serum protein distribution. Accurate interpretation of SPEP patterns requires specialized expertise to distinguish between polyclonal and monoclonal patterns, recognize atypical presentations, and correlate findings with clinical and laboratory context. Errors in interpretation can result from subtle pattern recognition challenges, background artifacts, or the presence of confounding clinical conditions (e.g., acute-phase response, nephrotic syndrome).</p>
-<p>AI-based SPEP interpretation could automate the identification of monoclonal peaks and other clinically significant patterns. By training on large sets of expert-annotated electrophoresis tracings, such systems can support standardized, accurate, and efficient result interpretation.</p>
-</section>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<section id="background-2" class="level3">
-<h3 class="anchored" data-anchor-id="background-2">Background</h3>
-<p>Clinical laboratories often provide interpretive comments for complex or high-stakes test results, such as endocrine testing, toxicology, coagulation studies, protein electrophoresis, or molecular diagnostics. These comments may synthesize current and prior laboratory results, relevant clinical context, specimen quality issues, medication effects, and recommended follow-up testing. Drafting them can be time-consuming and requires careful attention to accuracy, tone, scope of practice, and institutional reporting standards.</p>
-<p>A generative AI tool could draft preliminary interpretive comments for laboratory professionals to review, edit, and approve before release. By combining structured laboratory data with a controlled prompt template and approved reference content, such a system could improve consistency and reduce documentation burden. However, it could also introduce clinically plausible but incorrect statements, overstate certainty, omit important caveats, or generate recommendations that do not match local practice.</p>
-</section>
-</div>
-</div>
-</div>
-<section id="task" class="level3">
-<h3 class="anchored" data-anchor-id="task">Task</h3>
-<p>Discuss the questions below within your groups. Each tab focuses on a unique step in the complete machine learning life cycle, with its own objectives and considerations. A <strong>good AI use-case</strong> will have <strong>clear, justifiable answers</strong> to each of these questions.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Training</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Validation</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Deployment</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">Monitoring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-5" role="tab" aria-controls="tabset-2-5" aria-selected="false">Other</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p><em>1) What should the model be predicting?</em></p>
-<p><em>2) What should we use as a ground truth label?</em></p>
-<p><em>3) What should be included in the training data set?</em></p>
-</div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<p><em>1) How should performance be measured?</em></p>
-<p><em>2) What thresholds should be considered acceptable?</em></p>
-<p><em>3) What data should be used in the validation study?</em></p>
-</div>
-<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
-<p><em>1) What potential benefits could be expected?</em></p>
-<p><em>2) What potential harms might be introduced?</em></p>
-<p><em>3) Will the predictions be helpful in changing practice?</em></p>
-</div>
-<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
-<p><em>1) How will we monitor performance?</em></p>
-<p><em>2) What will we do if performance deteriorates?</em></p>
-</div>
-<div id="tabset-2-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-5-tab">
-<p><em>1) Are there human factors to consider?</em></p>
-<p><em>2) Are there regulatory requirements to consider?</em></p>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="case-2-exploring-explainability" class="level2">
-<h2 class="anchored" data-anchor-id="case-2-exploring-explainability">Case #2: Exploring Explainability</h2>
-<section id="explaining-a-model-globally" class="level3">
-<h3 class="anchored" data-anchor-id="explaining-a-model-globally">Explaining a Model “Globally”</h3>
-<p>Explainability techniques are largely classified into those that explain models, or <em>global</em> explanations, and those that explain individual predictions, or <em>local</em> explanations. Estimating the aggregate impact of each feature on model predictions across a full data set can be vital in identifying abnormal, inequitable, or harmful behaviors. Let’s explore how we can use these tools to evaluate how predicted probabilities changes across varying concentrations of our features.</p>
-<p>One popular tool that allows for both global and local explanations is <u>SH</u>apley <u>A</u>dditive ex<u>P</u>lanation (SHAP) values<span class="citation" data-cites="lundberg2017"><sup><a href="#ref-lundberg2017" role="doc-biblioref">1</a></sup></span>. The figure below presents the global view of the SHAP values for a model that predicts troponin results in asymptomatic outpatients.</p>
-<p><img src="images/clipboard-1566754423.png" class="img-fluid"></p>
+<pre class="shinylive-r" data-engine="r"><code>#| '!! shinylive warning !!': |
+#|   shinylive does not work in self-contained HTML documents.
+#|   Please set `embed-resources: false` in your metadata.
+#| standalone: true
+#| viewerHeight: 650
+
+webr::install("munsell")
+
+suppressPackageStartupMessages(library(bslib))
+suppressPackageStartupMessages(library(shiny))
+
+ui &lt;- page_fillable(
+    fluidRow(column(8, titlePanel("Evaluation with Imbalanced Classes")),
+             column(2, sliderInput("prevalence", "Class Balance:",
+                                    min = 0.005, max = 1, value = 1, step = 0.005, ticks = FALSE)),
+             column(2, sliderInput("separation", "Separation:",
+                                    min = 0.05, max = 0.5, value = 0.5, step = 0.05, ticks = FALSE)),
+             width = "100%", style = "height: 80px;"
+    ),
+    fluidRow(
+        column(4, plotOutput("densityPlot", width = "100%", height = "500px")),
+        column(4, plotOutput("metricPlot", width = "100%", height = "500px")),
+        column(4,
+      fluidRow(
+        plotOutput("rocPlot", width = "100%", height = "250px")
+      ),
+      fluidRow(
+        plotOutput("prPlot", width = "100%", height = "250px")
+      )
+    )
+  )
+)
+
+server &lt;- function(input, output) {
+  
+  suppressPackageStartupMessages(library(tidyverse))
+  suppressPackageStartupMessages(library(yardstick))
+  
+  theme_ns &lt;- theme(text = element_text(family = "Helvetica"),
+                    title = element_text(size = 24, margin = margin(0, 0, 8, 0)),
+                    plot.subtitle = element_text(size = 20, face = "plain", hjust = 0),
+                    plot.title = element_text(hjust = 0),
+                    axis.title = element_text(size = 16, face = "bold", margin = margin(4,4,4,4)),
+                    axis.title.x.bottom = element_text(face = "bold", margin = margin(4,0,0,0)),
+                    axis.title.y.left = element_text(face = "bold", margin = margin(0,4,0,0)),
+                    legend.title = element_text(face = "bold.italic", size = 12),
+                    axis.line = element_line(),
+                    axis.ticks = element_blank(),
+                    panel.grid = element_blank(), 
+                    panel.background = element_blank(),
+                    strip.text = element_text(size = 12, face = "bold.italic"),
+                    strip.background = element_blank())
+  theme_set(theme_ns)
+  
+  sim_data &lt;- reactive({
+      set.seed(123)
+      prevalence &lt;- input$prevalence[1]
+      separation &lt;- input$separation[1]
+      n &lt;- 10000
+      n_pos &lt;- round(n * prevalence)
+      n_neg &lt;- n
+      
+      pos &lt;- tibble(result = rnorm(n_pos, mean = 0.5 + separation/2, sd = 0.15), label = "Pos")
+      neg &lt;- tibble(result = rnorm(n_neg, mean = 0.5 - separation/2, sd = 0.15), label = "Neg")
+      
+      out_prev &lt;- 
+          bind_rows(pos, neg) %&gt;%
+              mutate(label = factor(label, levels = c("Pos", "Neg")),
+                     estimate = factor(ifelse(result &gt; 0.5, "Pos", "Neg"), 
+                                       levels = c("Pos", "Neg")),
+                     prevalence = factor("Current"))
+      
+      out_control &lt;- 
+          bind_rows(
+              rnorm(5000, mean = 0.75, sd = 0.15) %&gt;% tibble(result = ., label = "Pos"),
+              rnorm(5000, mean = 0.25, sd = 0.15) %&gt;% tibble(result = ., label = "Neg"),
+          ) |&gt; 
+          mutate(label = factor(label, levels = c("Pos", "Neg")),
+                 estimate = factor(ifelse(result &gt; 0.5, "Pos", "Neg"), 
+                                   levels = c("Pos", "Neg")),
+                 prevalence = factor("Baseline"))
+      
+      bind_rows(out_prev, out_control)
+  })
+  
+  
+    output$densityPlot &lt;- renderPlot({
+        
+        gg_input &lt;- sim_data()
+        
+        counts &lt;- gg_input |&gt; 
+            group_by(label, estimate) |&gt; 
+            summarise(count = n(), .groups = "drop")
+        
+        ggplot() +
+            geom_density(data = gg_input, aes(result, y = after_stat(count), fill = fct_rev(label)), alpha = 0.5, linewidth = 0.25, bounds = c(0, 1)) +
+            geom_vline(xintercept = 0.5, linetype = "dashed", color = "black") +
+            labs(title = "Event Distributions", x = "Predicted Probability", y = "Relative Frequency") +
+            coord_cartesian(clip = "off") +
+            scale_x_continuous(breaks = c(0, 0.5, 1), limits = c(0, 1.06)) +
+            scale_fill_manual(values = c("Pos" = "darkred", "Neg" = "darkblue")) +
+            theme(axis.text.y = element_blank(), legend.position = c(0.9, 0.9), legend.title = element_blank(), legend.background = element_blank())
+        
+    })
+  
+  output$rocPlot &lt;- renderPlot({
+      
+    gg_input &lt;- sim_data()
+      gg_roc_input &lt;- gg_input |&gt; group_by(prevalence) |&gt; roc_curve(result, truth = label)
+      
+      ggplot(gg_roc_input, aes(1-specificity, sensitivity, color = prevalence, alpha = prevalence)) +
+          geom_path(linewidth = 2) +
+          scale_color_manual(values = c("darkred", "grey50")) +
+          scale_alpha_manual(values = c(1, 0.25)) +
+          geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "grey50") +
+          labs(x = "1 - Specificity", y = "Sensitivity", title = "ROC Curves") + 
+          theme(axis.text = element_blank(), legend.position = c(0.75, 0.2), legend.title = element_blank(), legend.background = element_blank())
+  })
+  
+  output$prPlot &lt;- renderPlot({
+      
+      gg_input &lt;- sim_data()
+      gg_pr_input &lt;- gg_input |&gt; group_by(prevalence) |&gt; pr_curve(result, truth = label)
+      
+      ggplot(gg_pr_input, aes(x = recall, y = precision, color = prevalence, alpha = prevalence)) +
+          geom_path(linewidth = 2) +
+          scale_color_manual(values = c("darkred", "grey50")) +
+          scale_alpha_manual(values = c(1, 0.25)) +
+          labs(title = "PR Curves", x = "Recall", y = "Precision") + 
+          theme(axis.text = element_blank(), legend.position = c(0.25, 0.2), legend.title = element_blank(), legend.background = element_blank())
+  })
+  
+  output$metricPlot &lt;- renderPlot({
+      
+      gg_input &lt;- sim_data()
+      metric_group &lt;- metric_set(accuracy, sens, spec, ppv, npv, mcc)
+      metrics &lt;- 
+          gg_input |&gt; 
+              group_by(prevalence) |&gt; 
+              metric_group(label, estimate = estimate) |&gt; 
+              mutate(Value = round(.estimate, 2), 
+                     prevalence = fct_rev(prevalence),
+                     Metric = factor(.metric, 
+                                     levels = c("accuracy", "sens", "spec", "npv", "ppv", "mcc"),
+                                     labels = c("Acc", "Sens", "Spec", "NPV", "PPV", "MCC")))
+      
+      ggplot(metrics, aes(x = Metric, y = Value, fill = prevalence)) +
+          geom_col(position = position_dodge(1), show.legend = FALSE) +
+          geom_text(aes(label = Value), position = position_dodge(1), vjust = -1) + 
+          facet_wrap(~Metric, nrow = 2, scales = "free_x") + 
+          scale_y_continuous(limits = c(0, 1), breaks = c(0, 1), expand = expansion(add = c(0, 0.05))) + 
+          scale_fill_manual(values = c("grey75", "darkred")) + 
+          labs(title = "Performance Metrics", y = "Metric Value") +
+          theme(axis.text = element_text(size = 12), axis.title.x.bottom = element_blank(), strip.text = element_blank())
+  })
+}
+
+shinyApp(ui = ui, server = server)</code></pre>
 
 
-
-</section>
-</section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" role="list">
-<div id="ref-lundberg2017" class="csl-entry" role="listitem">
-<div class="csl-left-margin">1. </div><div class="csl-right-inline">Lundberg S, Lee S-I. A unified approach to interpreting model predictions. 2017;Available from: <a href="https://arxiv.org/abs/1705.07874">https://arxiv.org/abs/1705.07874</a></div>
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
