@@ -20,26 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -201,7 +182,6 @@ div.csl-indent {
   <li><a href="#activity-1-common-pitfalls" id="toc-activity-1-common-pitfalls" class="nav-link active" data-scroll-target="#activity-1-common-pitfalls">Activity 1: Common Pitfalls</a>
   <ul class="collapse">
   <li><a href="#case-1-evaluating-ai-use-cases" id="toc-case-1-evaluating-ai-use-cases" class="nav-link" data-scroll-target="#case-1-evaluating-ai-use-cases">Case #1: Evaluating AI Use-Cases</a></li>
-  <li><a href="#case-2-exploring-explainability" id="toc-case-2-exploring-explainability" class="nav-link" data-scroll-target="#case-2-exploring-explainability">Case #2: Exploring Explainability</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -274,27 +254,13 @@ div.csl-indent {
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="case-2-exploring-explainability" class="level2">
-<h2 class="anchored" data-anchor-id="case-2-exploring-explainability">Case #2: Exploring Explainability</h2>
-<section id="explaining-a-model-globally" class="level3">
-<h3 class="anchored" data-anchor-id="explaining-a-model-globally">Explaining a Model “Globally”</h3>
-<p>Explainability techniques are largely classified into those that explain models, or <em>global</em> explanations, and those that explain individual predictions, or <em>local</em> explanations. Estimating the aggregate impact of each feature on model predictions across a full data set can be vital in identifying abnormal, inequitable, or harmful behaviors. Let’s explore how we can use these tools to evaluate how predicted probabilities changes across varying concentrations of our features.</p>
-<p>One popular tool that allows for both global and local explanations is <u>SH</u>apley <u>A</u>dditive ex<u>P</u>lanation (SHAP) values<span class="citation" data-cites="lundberg2017"><sup><a href="#ref-lundberg2017" role="doc-biblioref">1</a></sup></span>. The figure below presents the global view of the SHAP values for a model that predicts troponin results in asymptomatic outpatients.</p>
-<p><img src="images/clipboard-1566754423.png" class="img-fluid"></p>
-
 
 
 </section>
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" role="list">
-<div id="ref-lundberg2017" class="csl-entry" role="listitem">
-<div class="csl-left-margin">1. </div><div class="csl-right-inline">Lundberg S, Lee S-I. A unified approach to interpreting model predictions. 2017;Available from: <a href="https://arxiv.org/abs/1705.07874">https://arxiv.org/abs/1705.07874</a></div>
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

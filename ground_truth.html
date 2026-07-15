@@ -4479,7 +4479,123 @@ font-size: 24px; }
 .callout-note {
 border: 2px solid #3B5378;
 border-left: 5px solid #3B5378;
-}</style>
+}
+.rare-event-simulator {
+--res-ink: #18212b;
+--res-muted: #5f6b78;
+--res-border: #c9d3df;
+--res-surface: #f4f7fa;
+--res-grid: #dbe3eb;
+--res-event: #a6333b;
+--res-nonevent: #286a99;
+--res-baseline: #6a747d;
+margin: 1.5rem 0;
+color: var(--res-ink);
+}
+.res-controls {
+display: grid;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 1.25rem 2rem;
+padding: 1rem 1.125rem;
+border: 1px solid var(--res-border);
+border-radius: 6px;
+background: var(--res-surface);
+}
+.res-control {
+min-width: 0;
+}
+.res-control label {
+display: flex;
+justify-content: space-between;
+gap: 1rem;
+margin-bottom: 0.5rem;
+color: var(--res-ink);
+font-weight: 700;
+}
+.res-control output {
+color: var(--res-event);
+font-variant-numeric: tabular-nums;
+}
+.res-control input[type="range"] {
+display: block;
+width: 100%;
+margin: 0;
+accent-color: var(--res-event);
+}
+.res-range-labels {
+display: flex;
+justify-content: space-between;
+margin-top: 0.3rem;
+color: var(--res-muted);
+font-size: 0.8rem;
+font-variant-numeric: tabular-nums;
+}
+.res-summary {
+min-height: 1.5rem;
+margin: 0.9rem 0 1rem;
+color: var(--res-muted);
+font-size: 0.95rem;
+}
+.res-chart-grid {
+display: grid;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 1rem;
+}
+.res-panel {
+min-width: 0;
+margin: 0;
+padding: 0.875rem;
+border: 1px solid var(--res-border);
+border-radius: 6px;
+background: #ffffff;
+}
+.res-panel figcaption {
+display: flex;
+align-items: baseline;
+justify-content: space-between;
+gap: 1rem;
+min-height: 1.5rem;
+margin-bottom: 0.35rem;
+}
+.res-panel-title {
+color: var(--res-ink);
+font-size: 1rem;
+font-weight: 700;
+}
+.res-panel-detail {
+flex: 0 1 auto;
+color: var(--res-muted);
+font-size: 0.8rem;
+text-align: right;
+}
+.res-chart {
+display: block;
+width: 100%;
+height: auto;
+aspect-ratio: 640 / 330;
+overflow: visible;
+}
+.res-no-script {
+margin: 1rem 0;
+padding: 0.75rem 1rem;
+border-left: 4px solid #a6333b;
+background: #fff5f5;
+}
+@media (max-width: 800px) {
+.res-controls,
+.res-chart-grid {
+grid-template-columns: minmax(0, 1fr);
+}
+.res-panel figcaption {
+align-items: flex-start;
+flex-direction: column;
+gap: 0.15rem;
+}
+.res-panel-detail {
+text-align: left;
+}
+}
+</style>
 </head>
 
 <body class="nav-sidebar docked">
