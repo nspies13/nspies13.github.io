@@ -39,11 +39,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<meta name="shinylive:serviceworker_dir" content=".">
-<script src="site_libs/quarto-contrib/shinylive-0.10.12/shinylive/load-shinylive-sw.js" type="module"></script>
-<script src="site_libs/quarto-contrib/shinylive-0.10.12/shinylive/run-python-blocks.js" type="module"></script>
-<link href="site_libs/quarto-contrib/shinylive-0.10.12/shinylive/shinylive.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/shinylive-quarto-css/shinylive-quarto.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -196,161 +191,76 @@ ul.task-list li input[type="checkbox"] {
 <section id="activity-2-rare-event-detection" class="level1">
 <h1>Activity 2: Rare Event Detection</h1>
 <hr>
-<pre class="shinylive-r" data-engine="r"><code>#| standalone: true
-#| viewerHeight: 650
+<p>Explore how the event rate and separation between score distributions change the interpretation of diagnostic performance. All threshold metrics use a decision threshold of 0.50.</p>
+<div id="rare-event-simulator" class="rare-event-simulator" data-threshold="0.5">
+  <section class="res-controls" aria-label="Simulation controls">
+    <div class="res-control">
+      <label for="event-prevalence">
+        <span>Event prevalence</span>
+        <output id="event-prevalence-value" for="event-prevalence">50.0%</output>
+      </label>
+      <input id="event-prevalence" type="range" min="0.5" max="50" value="50" step="0.5" aria-describedby="event-prevalence-range">
+      <div id="event-prevalence-range" class="res-range-labels" aria-hidden="true">
+        <span>0.5%</span>
+        <span>50%</span>
+      </div>
+    </div>
 
-webr::install("munsell")
+    <div class="res-control">
+      <label for="class-separation">
+        <span>Class separation</span>
+        <output id="class-separation-value" for="class-separation">0.50</output>
+      </label>
+      <input id="class-separation" type="range" min="0.05" max="0.50" value="0.50" step="0.05" aria-describedby="class-separation-range">
+      <div id="class-separation-range" class="res-range-labels" aria-hidden="true">
+        <span>0.05</span>
+        <span>0.50</span>
+      </div>
+    </div>
+  </section>
 
-suppressPackageStartupMessages(library(bslib))
-suppressPackageStartupMessages(library(shiny))
+  <p id="rare-event-summary" class="res-summary" aria-live="polite"></p>
 
-ui &lt;- page_fillable(
-    fluidRow(column(8, titlePanel("Evaluation with Imbalanced Classes")),
-             column(2, sliderInput("prevalence", "Class Balance:",
-                                    min = 0.005, max = 1, value = 1, step = 0.005, ticks = FALSE)),
-             column(2, sliderInput("separation", "Separation:",
-                                    min = 0.05, max = 0.5, value = 0.5, step = 0.05, ticks = FALSE)),
-             width = "100%", style = "height: 80px;"
-    ),
-    fluidRow(
-        column(4, plotOutput("densityPlot", width = "100%", height = "500px")),
-        column(4, plotOutput("metricPlot", width = "100%", height = "500px")),
-        column(4,
-      fluidRow(
-        plotOutput("rocPlot", width = "100%", height = "250px")
-      ),
-      fluidRow(
-        plotOutput("prPlot", width = "100%", height = "250px")
-      )
-    )
-  )
-)
+  <div class="res-chart-grid">
+    <figure class="res-panel figure">
+      <figcaption class="figure-caption">
+        <span class="res-panel-title">Event distributions</span>
+        <span class="res-panel-detail">Selected scenario</span>
+      </figcaption>
+      <svg id="distribution-chart" class="res-chart" role="img" focusable="false"></svg>
+    </figure>
 
-server &lt;- function(input, output) {
-  
-  suppressPackageStartupMessages(library(tidyverse))
-  suppressPackageStartupMessages(library(yardstick))
-  
-  theme_ns &lt;- theme(text = element_text(family = "Helvetica"),
-                    title = element_text(size = 24, margin = margin(0, 0, 8, 0)),
-                    plot.subtitle = element_text(size = 20, face = "plain", hjust = 0),
-                    plot.title = element_text(hjust = 0),
-                    axis.title = element_text(size = 16, face = "bold", margin = margin(4,4,4,4)),
-                    axis.title.x.bottom = element_text(face = "bold", margin = margin(4,0,0,0)),
-                    axis.title.y.left = element_text(face = "bold", margin = margin(0,4,0,0)),
-                    legend.title = element_text(face = "bold.italic", size = 12),
-                    axis.line = element_line(),
-                    axis.ticks = element_blank(),
-                    panel.grid = element_blank(), 
-                    panel.background = element_blank(),
-                    strip.text = element_text(size = 12, face = "bold.italic"),
-                    strip.background = element_blank())
-  theme_set(theme_ns)
-  
-  sim_data &lt;- reactive({
-      set.seed(123)
-      prevalence &lt;- input$prevalence[1]
-      separation &lt;- input$separation[1]
-      n &lt;- 10000
-      n_pos &lt;- round(n * prevalence)
-      n_neg &lt;- n
-      
-      pos &lt;- tibble(result = rnorm(n_pos, mean = 0.5 + separation/2, sd = 0.15), label = "Pos")
-      neg &lt;- tibble(result = rnorm(n_neg, mean = 0.5 - separation/2, sd = 0.15), label = "Neg")
-      
-      out_prev &lt;- 
-          bind_rows(pos, neg) %&gt;%
-              mutate(label = factor(label, levels = c("Pos", "Neg")),
-                     estimate = factor(ifelse(result &gt; 0.5, "Pos", "Neg"), 
-                                       levels = c("Pos", "Neg")),
-                     prevalence = factor("Current"))
-      
-      out_control &lt;- 
-          bind_rows(
-              rnorm(5000, mean = 0.75, sd = 0.15) %&gt;% tibble(result = ., label = "Pos"),
-              rnorm(5000, mean = 0.25, sd = 0.15) %&gt;% tibble(result = ., label = "Neg"),
-          ) |&gt; 
-          mutate(label = factor(label, levels = c("Pos", "Neg")),
-                 estimate = factor(ifelse(result &gt; 0.5, "Pos", "Neg"), 
-                                   levels = c("Pos", "Neg")),
-                 prevalence = factor("Baseline"))
-      
-      bind_rows(out_prev, out_control)
-  })
-  
-  
-    output$densityPlot &lt;- renderPlot({
-        
-        gg_input &lt;- sim_data()
-        
-        counts &lt;- gg_input |&gt; 
-            group_by(label, estimate) |&gt; 
-            summarise(count = n(), .groups = "drop")
-        
-        ggplot() +
-            geom_density(data = gg_input, aes(result, y = after_stat(count), fill = fct_rev(label)), alpha = 0.5, linewidth = 0.25, bounds = c(0, 1)) +
-            geom_vline(xintercept = 0.5, linetype = "dashed", color = "black") +
-            labs(title = "Event Distributions", x = "Predicted Probability", y = "Relative Frequency") +
-            coord_cartesian(clip = "off") +
-            scale_x_continuous(breaks = c(0, 0.5, 1), limits = c(0, 1.06)) +
-            scale_fill_manual(values = c("Pos" = "darkred", "Neg" = "darkblue")) +
-            theme(axis.text.y = element_blank(), legend.position = c(0.9, 0.9), legend.title = element_blank(), legend.background = element_blank())
-        
-    })
-  
-  output$rocPlot &lt;- renderPlot({
-      
-    gg_input &lt;- sim_data()
-      gg_roc_input &lt;- gg_input |&gt; group_by(prevalence) |&gt; roc_curve(result, truth = label)
-      
-      ggplot(gg_roc_input, aes(1-specificity, sensitivity, color = prevalence, alpha = prevalence)) +
-          geom_path(linewidth = 2) +
-          scale_color_manual(values = c("darkred", "grey50")) +
-          scale_alpha_manual(values = c(1, 0.25)) +
-          geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "grey50") +
-          labs(x = "1 - Specificity", y = "Sensitivity", title = "ROC Curves") + 
-          theme(axis.text = element_blank(), legend.position = c(0.75, 0.2), legend.title = element_blank(), legend.background = element_blank())
-  })
-  
-  output$prPlot &lt;- renderPlot({
-      
-      gg_input &lt;- sim_data()
-      gg_pr_input &lt;- gg_input |&gt; group_by(prevalence) |&gt; pr_curve(result, truth = label)
-      
-      ggplot(gg_pr_input, aes(x = recall, y = precision, color = prevalence, alpha = prevalence)) +
-          geom_path(linewidth = 2) +
-          scale_color_manual(values = c("darkred", "grey50")) +
-          scale_alpha_manual(values = c(1, 0.25)) +
-          labs(title = "PR Curves", x = "Recall", y = "Precision") + 
-          theme(axis.text = element_blank(), legend.position = c(0.25, 0.2), legend.title = element_blank(), legend.background = element_blank())
-  })
-  
-  output$metricPlot &lt;- renderPlot({
-      
-      gg_input &lt;- sim_data()
-      metric_group &lt;- metric_set(accuracy, sens, spec, ppv, npv, mcc)
-      metrics &lt;- 
-          gg_input |&gt; 
-              group_by(prevalence) |&gt; 
-              metric_group(label, estimate = estimate) |&gt; 
-              mutate(Value = round(.estimate, 2), 
-                     prevalence = fct_rev(prevalence),
-                     Metric = factor(.metric, 
-                                     levels = c("accuracy", "sens", "spec", "npv", "ppv", "mcc"),
-                                     labels = c("Acc", "Sens", "Spec", "NPV", "PPV", "MCC")))
-      
-      ggplot(metrics, aes(x = Metric, y = Value, fill = prevalence)) +
-          geom_col(position = position_dodge(1), show.legend = FALSE) +
-          geom_text(aes(label = Value), position = position_dodge(1), vjust = -1) + 
-          facet_wrap(~Metric, nrow = 2, scales = "free_x") + 
-          scale_y_continuous(limits = c(0, 1), breaks = c(0, 1), expand = expansion(add = c(0, 0.05))) + 
-          scale_fill_manual(values = c("grey75", "darkred")) + 
-          labs(title = "Performance Metrics", y = "Metric Value") +
-          theme(axis.text = element_text(size = 12), axis.title.x.bottom = element_blank(), strip.text = element_blank())
-  })
-}
+    <figure class="res-panel figure">
+      <figcaption class="figure-caption">
+        <span class="res-panel-title">Threshold performance</span>
+        <span class="res-panel-detail">Decision threshold 0.50</span>
+      </figcaption>
+      <svg id="metrics-chart" class="res-chart" role="img" focusable="false"></svg>
+    </figure>
 
-shinyApp(ui = ui, server = server)</code></pre>
+    <figure class="res-panel figure">
+      <figcaption class="figure-caption">
+        <span class="res-panel-title">ROC curves</span>
+        <span class="res-panel-detail">Discrimination</span>
+      </figcaption>
+      <svg id="roc-chart" class="res-chart" role="img" focusable="false"></svg>
+    </figure>
+
+    <figure class="res-panel figure">
+      <figcaption class="figure-caption">
+        <span class="res-panel-title">Precision-recall curves</span>
+        <span class="res-panel-detail">Positive predictive value</span>
+      </figcaption>
+      <svg id="pr-chart" class="res-chart" role="img" focusable="false"></svg>
+    </figure>
+  </div>
+</div>
+
+<noscript>
+  <p class="res-no-script">This activity requires JavaScript to calculate and display the simulation.</p>
+</noscript>
+
+<script src="activity2.js" defer=""></script>
 
 
 </section>
